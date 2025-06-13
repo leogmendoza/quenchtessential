@@ -1,4 +1,4 @@
-#include "sensor.h"
+#include "sensor.hpp"
 
 Sensor::Sensor(int pin) : pin_(pin) {
     // TODO: Set pinMode

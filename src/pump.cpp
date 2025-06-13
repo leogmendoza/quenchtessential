@@ -1,4 +1,4 @@
-#include "pump.h"
+#include "pump.hpp"
 
 Pump::Pump(int pin) : pin_(pin) {
     // TODO: Set pinMode
