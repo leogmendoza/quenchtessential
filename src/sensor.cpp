@@ -7,5 +7,5 @@ Sensor::Sensor(int pin) : pin_(pin) {
 int Sensor::readMoisture() {
     // PASS
 
-    return 0;
+    return 1000;
 }
