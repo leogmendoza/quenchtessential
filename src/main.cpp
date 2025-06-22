@@ -2,8 +2,8 @@
 #include "sensor.hpp"
 #include "pump.hpp"
 
-#define GPIO_A 6
-#define GPIO_B 7
+#define GPIO_A 32
+#define GPIO_B 16
 
 // Initialize devices
 Sensor sensor_A(GPIO_A);
@@ -21,7 +21,7 @@ void loop() {
 
   // Test pump toggling
   pump_A.setState(true);
-  delay(500);
+  delay(1000);
   pump_A.setState(false);
-  delay(500);
+  delay(1000);
 }

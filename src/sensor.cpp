@@ -1,11 +1,10 @@
 #include "sensor.hpp"
+#include <Arduino.h>
 
 Sensor::Sensor(int pin) : pin_(pin) {
-    // TODO: Set pinMode
+    pinMode(pin_, INPUT);
 }
 
 int Sensor::readMoisture() {
-    // PASS
-
-    return 1000;
+    return analogRead(pin_);
 }

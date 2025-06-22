@@ -2,10 +2,10 @@
 #include <Arduino.h>
 
 Pump::Pump(int pin) : pin_(pin) {
-    // TODO: Set pinMode
+    pinMode(pin_, OUTPUT);
+    digitalWrite(pin_, LOW);
 }
 
 void Pump::setState(bool on) {
-    Serial.print("Pump is now ");
-    Serial.println(on ? "ON" : "OFF");
+    digitalWrite(pin_, on ? HIGH : LOW);
 }
