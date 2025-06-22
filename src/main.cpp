@@ -5,9 +5,11 @@
 #define GPIO_A 32
 #define GPIO_B 16
 
+const int DRY_THRESHOLD = 3000;
+
 // Initialize devices
-Sensor sensor_A(GPIO_A);
-Pump pump_A(GPIO_B);
+Sensor sensor(GPIO_A);
+Pump pump(GPIO_B);
 
 void setup() {
   Serial.begin(115200);
@@ -15,13 +17,17 @@ void setup() {
 
 void loop() {
   // Test sensor
-  int moisture_A = sensor_A.readMoisture();
+  int moisture = sensor.readMoisture();
   Serial.print("Moisture: ");
-  Serial.println(moisture_A);
+  Serial.println(moisture);
 
   // Test pump toggling
-  pump_A.setState(true);
-  delay(1000);
-  pump_A.setState(false);
+  if (moisture < DRY_THRESHOLD) {
+    pump.setState(true);
+  }
+  else {
+    pump.setState(false);
+  }
+  
   delay(1000);
 }
