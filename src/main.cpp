@@ -6,6 +6,8 @@
 #define GPIO_SENSOR 32
 #define GPIO_PUMP 16
 
+PlantFSM plantFsm;
+
 QueueHandle_t moistureQueue;
 
 const TickType_t SENSOR_TASK_INTERVAL = pdMS_TO_TICKS(1000);
@@ -36,12 +38,8 @@ void ControlTask(void* pvParameters) {
 
     if ( xQueueReceive( moistureQueue, &moisture, 0 ) == pdTRUE ) {
       // Activate pump based on moisture sensor reading
-      if ( moisture < DRY_THRESHOLD ) {
-        pump.setState(true);
-      }
-      else {
-        pump.setState(false);
-      }
+      plantFsm.update(moisture);
+      pump.setState(plantFsm.isWatering());
     }
 
     vTaskDelay(CONTROL_TASK_INTERVAL);

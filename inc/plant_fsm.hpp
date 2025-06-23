@@ -21,4 +21,4 @@ class PlantFSM {
         unsigned long stateStartTime_;
 
         void transitionTo(PlantState newState);
-}
+};

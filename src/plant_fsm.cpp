@@ -1,4 +1,5 @@
 #include "plant_fsm.hpp"
+#include <Arduino.h>
 
 const int DRY_THRESHOLD = 3000;  // Temporary; need to actually calibrate
 constexpr unsigned long WATERING_DURATION_MS = 2000;
