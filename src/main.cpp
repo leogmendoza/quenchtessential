@@ -2,6 +2,7 @@
 #include "sensor.hpp"
 #include "pump.hpp"
 #include "plant_fsm.hpp"
+#include "secrets.hpp"
 
 #define GPIO_SENSOR 32
 #define GPIO_PUMP 16
@@ -75,5 +76,9 @@ void setup() {
 }
 
 void loop() {
+  // Testing out the secrets file
+  Serial.println(WIFI_SSID);
+  Serial.println(WIFI_PASSWORD);
 
+  delay(1000);
 }
