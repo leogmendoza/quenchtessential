@@ -1,4 +1,7 @@
 #include <Arduino.h>
+#include <WiFi.h>
+#include <PubSubClient.h>
+
 #include "sensor.hpp"
 #include "pump.hpp"
 #include "plant_fsm.hpp"
@@ -49,6 +52,21 @@ void ControlTask(void* pvParameters) {
 
 void setup() {
   Serial.begin(115200);
+
+  // Set up Wi-Fi connection
+  WiFi.begin( WIFI_SSID, WIFI_PASSWORD );
+  Serial.print("Beaming it up to Wi-Fi");
+
+  while (WiFi.status() != WL_CONNECTED) {
+    Serial.print(" .");
+
+    delay(500);
+  }
+
+  Serial.println();
+  Serial.println("Wi-Fi is beamed up!");
+  Serial.print("IP Address: ");
+  Serial.println( WiFi.localIP() );
 
   moistureQueue = xQueueCreate( 5, sizeof(int) );
 
