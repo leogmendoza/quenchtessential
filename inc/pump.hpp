@@ -1,5 +1,4 @@
-#ifndef PUMP_H
-#define PUMP_H
+#pragma once
 
 class Pump {
     public:
@@ -9,5 +8,3 @@ class Pump {
     private:
         int pin_;
 };
-
-#endif

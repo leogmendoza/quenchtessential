@@ -1,5 +1,4 @@
-#ifndef SENSOR_H
-#define SENSOR_H
+#pragma once
 
 class Sensor {
     public:
@@ -10,5 +9,3 @@ class Sensor {
     private:
         int pin_;
 };
-
-#endif
