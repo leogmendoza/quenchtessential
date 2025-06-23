@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "sensor.hpp"
 #include "pump.hpp"
+#include "plant_fsm.hpp"
 
 #define GPIO_SENSOR 32
 #define GPIO_PUMP 16
