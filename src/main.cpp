@@ -9,7 +9,10 @@ struct PlantData {
   int moisture;
 };
 
-const int DRY_THRESHOLD = 3000;
+const TickType_t SENSOR_TASK_INTERVAL = pdMS_TO_TICKS(1000);
+const TickType_t CONTROL_TASK_INTERVAL = pdMS_TO_TICKS(500);
+
+const int DRY_THRESHOLD = 3000;  // Temporary; need to actually calibrate
 
 // Initialize data
 PlantData plantData;
@@ -26,9 +29,22 @@ void SensorTask(void* pvParameters) {
     Serial.print("Moisture: ");
     Serial.println(plantData.moisture);
 
-    vTaskDelay( pdMS_TO_TICKS(1000) );
+    vTaskDelay(SENSOR_TASK_INTERVAL);
   }
   
+}
+
+void ControlTask(void* pvParameters) {
+  for (;;) {
+    if (plantData.moisture < DRY_THRESHOLD) {
+      pump.setState(true);
+    }
+    else {
+      pump.setState(false);
+    }
+
+    vTaskDelay(CONTROL_TASK_INTERVAL);
+  }
 }
 
 void setup() {
@@ -42,21 +58,17 @@ void setup() {
     1, 
     NULL
   );
+
+  xTaskCreate(
+    ControlTask, 
+    "Control", 
+    1024, 
+    NULL, 
+    1, 
+    NULL
+  );
 }
 
 void loop() {
-  // Test sensor
-  // int moisture = sensor.readMoisture();
-  // Serial.print("Moisture: ");
-  // Serial.println(moisture);
 
-  // Test pump toggling
-  // if (moisture < DRY_THRESHOLD) {
-  //   pump.setState(true);
-  // }
-  // else {
-  //   pump.setState(false);
-  // }
-  
-  // delay(1000);
 }
