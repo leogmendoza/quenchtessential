@@ -5,17 +5,12 @@
 #define GPIO_SENSOR 32
 #define GPIO_PUMP 16
 
-struct PlantData {
-  int moisture;
-};
+QueueHandle_t moistureQueue;
 
 const TickType_t SENSOR_TASK_INTERVAL = pdMS_TO_TICKS(1000);
 const TickType_t CONTROL_TASK_INTERVAL = pdMS_TO_TICKS(500);
 
 const int DRY_THRESHOLD = 3000;  // Temporary; need to actually calibrate
-
-// Initialize data
-PlantData plantData;
 
 // Initialize devices
 Sensor sensor(GPIO_SENSOR);
@@ -23,24 +18,29 @@ Pump pump(GPIO_PUMP);
 
 void SensorTask(void* pvParameters) {
   for (;;) {
-    plantData.moisture = sensor.readMoisture();
+    // Take moisture measurement and prepare for control logic
+    int moisture = sensor.readMoisture();
+    xQueueSend( moistureQueue, &moisture, portMAX_DELAY );
 
-    // Testing
     Serial.print("Moisture: ");
-    Serial.println(plantData.moisture);
+    Serial.println(moisture);
 
     vTaskDelay(SENSOR_TASK_INTERVAL);
-  }
-  
+  } 
 }
 
 void ControlTask(void* pvParameters) {
   for (;;) {
-    if (plantData.moisture < DRY_THRESHOLD) {
-      pump.setState(true);
-    }
-    else {
-      pump.setState(false);
+    int moisture;
+
+    if ( xQueueReceive( moistureQueue, &moisture, 0 ) == pdTRUE ) {
+      // Activate pump based on moisture sensor reading
+      if ( moisture < DRY_THRESHOLD ) {
+        pump.setState(true);
+      }
+      else {
+        pump.setState(false);
+      }
     }
 
     vTaskDelay(CONTROL_TASK_INTERVAL);
@@ -49,6 +49,12 @@ void ControlTask(void* pvParameters) {
 
 void setup() {
   Serial.begin(115200);
+
+  moistureQueue = xQueueCreate( 5, sizeof(int) );
+
+  if (moistureQueue == NULL) {
+    Serial.println("Moisture queue couldn't be created! :(");
+  }
 
   xTaskCreate(
     SensorTask, 
