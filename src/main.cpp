@@ -10,12 +10,20 @@
 #define GPIO_SENSOR 32
 #define GPIO_PUMP 16
 
-PlantFSM plantFsm;
-
-QueueHandle_t moistureQueue;
+const char* MQTT_BROKER = "test.mosquitto.org";  // Public MQTT broker for testing only
+const int MQTT_PORT = 1883;
+const char* MQTT_CLIENT_ID = "plantClient";
 
 const TickType_t SENSOR_TASK_INTERVAL = pdMS_TO_TICKS(1000);
 const TickType_t CONTROL_TASK_INTERVAL = pdMS_TO_TICKS(500);
+
+PlantFSM plantFsm;
+
+// Use WiFi to handle connections to MQTT broker
+WiFiClient espClient;
+PubSubClient mqttClient(espClient);
+
+QueueHandle_t moistureQueue;
 
 const int DRY_THRESHOLD = 3000;  // Temporary; need to actually calibrate
 
@@ -68,12 +76,24 @@ void setup() {
   Serial.print("IP Address: ");
   Serial.println( WiFi.localIP() );
 
+  // Set up MQTT
+  mqttClient.setServer( MQTT_BROKER, MQTT_PORT );
+
+  if ( mqttClient.connect(MQTT_CLIENT_ID) ) {
+    Serial.println("MQTT connected!");
+  } else {
+    Serial.print("MQTT failed . . . State: ");
+    Serial.println( mqttClient.state() );
+  }
+
+  // Set up sensor data queue
   moistureQueue = xQueueCreate( 5, sizeof(int) );
 
   if (moistureQueue == NULL) {
     Serial.println("Moisture queue couldn't be created! :(");
   }
 
+  // Set up tasks
   xTaskCreate(
     SensorTask, 
     "Sensor", 
@@ -94,9 +114,5 @@ void setup() {
 }
 
 void loop() {
-  // Testing out the secrets file
-  Serial.println(WIFI_SSID);
-  Serial.println(WIFI_PASSWORD);
 
-  delay(1000);
 }
