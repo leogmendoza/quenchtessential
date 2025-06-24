@@ -14,6 +14,7 @@ const char* MQTT_BROKER = "test.mosquitto.org";  // Public MQTT broker for testi
 const int MQTT_PORT = 1883;
 const char* MQTT_CLIENT_ID = "plantClient";
 const char* MQTT_TOPIC = "quenhtessential/plant/status";
+const unsigned long MQTT_PUBLISH_INTERVAL_MS = 10000;
 
 const TickType_t SENSOR_TASK_INTERVAL = pdMS_TO_TICKS(1000);
 const TickType_t CONTROL_TASK_INTERVAL = pdMS_TO_TICKS(500);
@@ -48,6 +49,7 @@ void SensorTask(void* pvParameters) {
 void ControlTask(void* pvParameters) {
   for (;;) {
     int moisture;
+    static unsigned long lastPublish = 0;
 
     if ( xQueueReceive( moistureQueue, &moisture, 0 ) == pdTRUE ) {
       // Activate pump based on moisture sensor reading
@@ -55,7 +57,7 @@ void ControlTask(void* pvParameters) {
       pump.setState(plantFsm.isWatering());
     }
 
-    if ( mqttClient.connected() ) {
+    if ( ( mqttClient.connected() ) && ( ( millis() - lastPublish ) > MQTT_PUBLISH_INTERVAL_MS ) ) {
       char payload[64];
 
       // Format moisture reading string into payload buffer
@@ -65,12 +67,9 @@ void ControlTask(void* pvParameters) {
       Serial.println(payload);
 
       mqttClient.publish( MQTT_TOPIC, payload );
-    }
 
-    // Check task size
-    UBaseType_t stackRemaining = uxTaskGetStackHighWaterMark(NULL);
-    Serial.print("Stack left: ");
-    Serial.println(stackRemaining);
+      lastPublish = millis();
+    }
 
     vTaskDelay(CONTROL_TASK_INTERVAL);
   }
