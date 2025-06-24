@@ -33,6 +33,20 @@ const int DRY_THRESHOLD = 3000;  // Temporary; need to actually calibrate
 Sensor sensor(GPIO_SENSOR);
 Pump pump(GPIO_PUMP);
 
+void ensureMqttConnection() {
+  // Guard for MQTT reconnection
+  if ( !mqttClient.connected() ) {
+    Serial.println("MQTT disconnected, attempting to reconnect . . .");
+
+    if ( mqttClient.connect(MQTT_CLIENT_ID) ) {
+      Serial.println("MQTT reconnected!");
+    } else {
+      Serial.print("MQTT reconnect failed. State: ");
+      Serial.println( mqttClient.state() );
+    }
+  }
+}
+
 void SensorTask(void* pvParameters) {
   for (;;) {
     // Take moisture measurement and prepare for control logic
