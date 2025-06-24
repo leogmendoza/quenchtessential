@@ -15,6 +15,7 @@ const int MQTT_PORT = 1883;
 const char* MQTT_CLIENT_ID = "plantClient";
 const char* MQTT_TOPIC = "quenhtessential/plant/status";
 const unsigned long MQTT_PUBLISH_INTERVAL_MS = 10000;
+const unsigned long MQTT_RECONNECT_INTERVAL_MS = 5000;
 
 const TickType_t SENSOR_TASK_INTERVAL = pdMS_TO_TICKS(1000);
 const TickType_t CONTROL_TASK_INTERVAL = pdMS_TO_TICKS(500);
@@ -34,9 +35,13 @@ Sensor sensor(GPIO_SENSOR);
 Pump pump(GPIO_PUMP);
 
 void ensureMqttConnection() {
+  static unsigned long lastReconnectAttempt = 0;
+  unsigned long now = millis(); 
+
   // Guard for MQTT reconnection
-  if ( !mqttClient.connected() ) {
+  if ( ( !mqttClient.connected() ) && ( ( now - lastReconnectAttempt ) > MQTT_RECONNECT_INTERVAL_MS ) ) {
     Serial.println("MQTT disconnected, attempting to reconnect . . .");
+    lastReconnectAttempt = now;
 
     if ( mqttClient.connect(MQTT_CLIENT_ID) ) {
       Serial.println("MQTT reconnected!");
@@ -70,6 +75,8 @@ void ControlTask(void* pvParameters) {
       plantFsm.update(moisture);
       pump.setState(plantFsm.isWatering());
     }
+
+    ensureMqttConnection();
 
     if ( ( mqttClient.connected() ) && ( ( millis() - lastPublish ) > MQTT_PUBLISH_INTERVAL_MS ) ) {
       char payload[64];
