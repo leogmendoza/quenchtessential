@@ -39,17 +39,17 @@ void MqttHandler::publish(int moisture) {
     }
 
     unsigned long now = millis();
-    if ( ( now - lastPublish_ ) < Config::MQTT_PUBLISH_INTERVAL_MS) {
+    if ( ( now - lastPublish_ ) < Config::MQTT_PUBLISH_INTERVAL_MS ) {
         return;
     } 
 
     // Format moisture reading string into payload buffer
-    snprintf(payload_, sizeof(payload_), "{\"plant1\": %d}", moisture);  // TODO: Add multiple sensors
+    snprintf( payload_, sizeof(payload_), "{\"plant1\": %d}", moisture );  // TODO: Add multiple sensors
 
     // Test payload formatting--TODO: Remove once full-stack is working
     Serial.print("[MQTT] Publishing: ");
     Serial.println(payload_);
 
-    client_.publish(Config::MQTT_TOPIC, payload_);
+    client_.publish( Config::MQTT_TOPIC, payload_ );
     lastPublish_ = now;
 }
