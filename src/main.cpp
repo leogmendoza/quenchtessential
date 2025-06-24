@@ -13,6 +13,7 @@
 const char* MQTT_BROKER = "test.mosquitto.org";  // Public MQTT broker for testing only
 const int MQTT_PORT = 1883;
 const char* MQTT_CLIENT_ID = "plantClient";
+const char* MQTT_TOPIC = "quenhtessential/plant/status";
 
 const TickType_t SENSOR_TASK_INTERVAL = pdMS_TO_TICKS(1000);
 const TickType_t CONTROL_TASK_INTERVAL = pdMS_TO_TICKS(500);
@@ -52,6 +53,18 @@ void ControlTask(void* pvParameters) {
       // Activate pump based on moisture sensor reading
       plantFsm.update(moisture);
       pump.setState(plantFsm.isWatering());
+    }
+
+    if ( mqttClient.connected() ) {
+      char payload[64];
+
+      // Format moisture reading string into payload buffer
+      snprintf( payload, sizeof(payload), "{\"moisture\": %d}", moisture );
+
+      // Test payload formatting
+      Serial.println(payload);
+
+      mqttClient.publish( MQTT_TOPIC, payload );
     }
 
     vTaskDelay(CONTROL_TASK_INTERVAL);
