@@ -2,6 +2,7 @@
 #include <WiFi.h>
 #include <PubSubClient.h>
 
+#include "plant.hpp"
 #include "sensor.hpp"
 #include "pump.hpp"
 #include "plant_fsm.hpp"
@@ -9,50 +10,23 @@
 #include "secrets.hpp"
 #include "config.hpp"
 
-PlantFSM plantFsm;
-
 // Use WiFi to handle connections to MQTT broker
 WiFiClient espClient;
 PubSubClient mqttClient(espClient);
 MqttHandler mqtt(mqttClient);
 
-QueueHandle_t moistureQueue;
-
-// Initialize devices
-Sensor sensor(Config::SENSOR_PIN);
-Pump pump(Config::PUMP_PIN);
-
-void SensorTask(void* pvParameters) {
-  for (;;) {
-    // Take moisture measurement and prepare for control logic
-    int moisture = sensor.readMoisture();
-
-    // Avoid blocking when queue is full
-    if ( xQueueSend( moistureQueue, &moisture, 0 ) != pdPASS ) {
-      Serial.println("Queue full, so skipping moisture value :o");
-    }
-
-
-    Serial.print("Moisture: ");
-    Serial.println(moisture);
-
-    vTaskDelay(Config::SENSOR_TASK_INTERVAL);
-  } 
-}
+Plant plant(Config::SENSOR_PIN, Config::PUMP_PIN);
 
 void ControlTask(void* pvParameters) {
   for (;;) {
     int moisture;
     static unsigned long lastPublish = 0;
 
-    if ( xQueueReceive( moistureQueue, &moisture, 0 ) == pdTRUE ) {
-      // Activate pump based on moisture sensor reading
-      plantFsm.update(moisture);
-      pump.setState(plantFsm.isWatering());
-    }
+    // Activate pump based on moisture sensor reading
+    plant.update();
 
     mqtt.maintainConnection();
-    mqtt.publish(moisture);
+    mqtt.publish(plant.getMoisture());
 
     vTaskDelay(Config::CONTROL_TASK_INTERVAL);
   }
@@ -77,23 +51,6 @@ void setup() {
   Serial.println( WiFi.localIP() );
 
   mqtt.setup();
-
-  // Set up sensor data queue
-  moistureQueue = xQueueCreate( 10, sizeof(int) );
-
-  if (moistureQueue == NULL) {
-    Serial.println("Moisture queue couldn't be created! :(");
-  }
-
-  // Set up tasks
-  xTaskCreate(
-    SensorTask, 
-    "Sensor", 
-    1024, 
-    NULL, 
-    1, 
-    NULL
-  );
 
   xTaskCreate(
     ControlTask, 
