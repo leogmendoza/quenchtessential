@@ -5,6 +5,7 @@
 #include "sensor.hpp"
 #include "pump.hpp"
 #include "plant_fsm.hpp"
+#include "mqtt_handler.hpp"
 #include "secrets.hpp"
 #include "config.hpp"
 
@@ -13,6 +14,7 @@ PlantFSM plantFsm;
 // Use WiFi to handle connections to MQTT broker
 WiFiClient espClient;
 PubSubClient mqttClient(espClient);
+MqttHandler mqtt(mqttClient);
 
 QueueHandle_t moistureQueue;
 
