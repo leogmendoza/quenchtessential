@@ -9,6 +9,7 @@ class MqttHandler {
 
         void setup();
         void maintainConnection();
+        
         void publish(int moisture);
 
     private:

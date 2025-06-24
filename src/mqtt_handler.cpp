@@ -1,6 +1,7 @@
 #include "mqtt_handler.hpp"
 
 #include <Arduino.h>
+#include <WiFi.h>
 #include "config.hpp"
 
 MqttHandler::MqttHandler(PubSubClient& client): client_(client) {}
@@ -11,13 +12,18 @@ void MqttHandler::setup() {
 }
 
 void MqttHandler::maintainConnection() {
+    // Check for Wi-Fi status before trying MQTT
+    if ( WiFi.status() != WL_CONNECTED ) {
+        return;  
+    }
+
     if ( !client_.connected() ) {
         unsigned long now = millis();
 
         // Guard for MQTT reconnection with throttling to prevent repeated failures
         if ( ( now - lastReconnectAttempt_ ) > Config::MQTT_RECONNECT_INTERVAL_MS ) {
-        Serial.println("[MQTT] Reconnecting . . . ");
-        reconnect();
+            Serial.println("[MQTT] Reconnecting . . . ");
+            reconnect();
         }
     }
 }

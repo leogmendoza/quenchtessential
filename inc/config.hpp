@@ -12,6 +12,7 @@ namespace Config {
     constexpr unsigned long WATERING_DURATION_MS = 2000;
     constexpr unsigned long COOLDOWN_DURATION_MS = 2000;
 
+    constexpr unsigned long WIFI_RECONNECT_INTERVAL_MS = 5000;
     constexpr unsigned long MQTT_PUBLISH_INTERVAL_MS   = 10000;
     constexpr unsigned long MQTT_RECONNECT_INTERVAL_MS = 5000;
 

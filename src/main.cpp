@@ -21,10 +21,14 @@ Plant plant(Config::SENSOR_PIN, Config::PUMP_PIN);
 
 void ControlTask(void* pvParameters) {
   for (;;) {
+    // Confirm connections over WiFi and MQTT
+    wifi.maintainConnection( WIFI_SSID, WIFI_PASSWORD );
+    mqtt.maintainConnection();
+
     // Activate pump based on moisture sensor reading
     plant.update();
 
-    mqtt.maintainConnection();
+    // Send sensor reading to MQTT broker
     mqtt.publish( plant.getMoisture() );
 
     vTaskDelay(Config::CONTROL_TASK_INTERVAL);

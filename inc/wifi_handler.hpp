@@ -5,6 +5,8 @@
 class WifiHandler {
     public:
         void connect(const char* ssid, const char* password);
+        void maintainConnection(const char* ssid, const char* password);
+
         IPAddress getLocalIP() const;
         bool isConnected() const;
 };
