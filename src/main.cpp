@@ -38,7 +38,7 @@ void ensureMqttConnection() {
   static unsigned long lastReconnectAttempt = 0;
   unsigned long now = millis(); 
 
-  // Guard for MQTT reconnection
+  // Guard for MQTT reconnection with throttling to prevent repeated failures
   if ( ( !mqttClient.connected() ) && ( ( now - lastReconnectAttempt ) > MQTT_RECONNECT_INTERVAL_MS ) ) {
     Serial.println("MQTT disconnected, attempting to reconnect . . .");
     lastReconnectAttempt = now;
@@ -56,7 +56,12 @@ void SensorTask(void* pvParameters) {
   for (;;) {
     // Take moisture measurement and prepare for control logic
     int moisture = sensor.readMoisture();
-    xQueueSend( moistureQueue, &moisture, portMAX_DELAY );
+
+    // Avoid blocking when queue is full
+    if ( xQueueSend( moistureQueue, &moisture, 0 ) != pdPASS ) {
+      Serial.println("Queue full, so skipping moisture value :o");
+    }
+
 
     Serial.print("Moisture: ");
     Serial.println(moisture);
@@ -125,7 +130,7 @@ void setup() {
   }
 
   // Set up sensor data queue
-  moistureQueue = xQueueCreate( 5, sizeof(int) );
+  moistureQueue = xQueueCreate( 10, sizeof(int) );
 
   if (moistureQueue == NULL) {
     Serial.println("Moisture queue couldn't be created! :(");
@@ -144,7 +149,7 @@ void setup() {
   xTaskCreate(
     ControlTask, 
     "Control", 
-    2048, 
+    4096, 
     NULL, 
     1, 
     NULL
