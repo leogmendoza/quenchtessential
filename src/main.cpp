@@ -18,29 +18,9 @@ MqttHandler mqtt(mqttClient);
 
 QueueHandle_t moistureQueue;
 
-const int DRY_THRESHOLD = 3000;  
-
 // Initialize devices
 Sensor sensor(Config::SENSOR_PIN);
 Pump pump(Config::PUMP_PIN);
-
-void ensureMqttConnection() {
-  static unsigned long lastReconnectAttempt = 0;
-  unsigned long now = millis(); 
-
-  // Guard for MQTT reconnection with throttling to prevent repeated failures
-  if ( ( !mqttClient.connected() ) && ( ( now - lastReconnectAttempt ) > Config::MQTT_RECONNECT_INTERVAL_MS ) ) {
-    Serial.println("MQTT disconnected, attempting to reconnect . . .");
-    lastReconnectAttempt = now;
-
-    if ( mqttClient.connect(Config::MQTT_CLIENT_ID) ) {
-      Serial.println("MQTT reconnected!");
-    } else {
-      Serial.print("MQTT reconnect failed. State: ");
-      Serial.println( mqttClient.state() );
-    }
-  }
-}
 
 void SensorTask(void* pvParameters) {
   for (;;) {
@@ -71,21 +51,8 @@ void ControlTask(void* pvParameters) {
       pump.setState(plantFsm.isWatering());
     }
 
-    ensureMqttConnection();
-
-    if ( ( mqttClient.connected() ) && ( ( millis() - lastPublish ) > Config::MQTT_PUBLISH_INTERVAL_MS ) ) {
-      char payload[64];
-
-      // Format moisture reading string into payload buffer
-      snprintf( payload, sizeof(payload), "{\"moisture\": %d}", moisture );
-
-      // Test payload formatting
-      Serial.println(payload);
-
-      mqttClient.publish( Config::MQTT_TOPIC, payload );
-
-      lastPublish = millis();
-    }
+    mqtt.maintainConnection();
+    mqtt.publish(moisture);
 
     vTaskDelay(Config::CONTROL_TASK_INTERVAL);
   }
@@ -109,15 +76,7 @@ void setup() {
   Serial.print("IP Address: ");
   Serial.println( WiFi.localIP() );
 
-  // Set up MQTT
-  mqttClient.setServer( Config::MQTT_BROKER, Config::MQTT_PORT );
-
-  if ( mqttClient.connect(Config::MQTT_CLIENT_ID) ) {
-    Serial.println("MQTT connected!");
-  } else {
-    Serial.print("MQTT failed . . . State: ");
-    Serial.println( mqttClient.state() );
-  }
+  mqtt.setup();
 
   // Set up sensor data queue
   moistureQueue = xQueueCreate( 10, sizeof(int) );
