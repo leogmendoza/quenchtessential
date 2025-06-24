@@ -1,16 +1,14 @@
 #include "plant_fsm.hpp"
-#include <Arduino.h>
 
-const int DRY_THRESHOLD = 3000;  // Temporary; need to actually calibrate
-constexpr unsigned long WATERING_DURATION_MS = 2000;
-constexpr unsigned long COOLDOWN_DURATION_MS = 2000;
+#include <Arduino.h>
+#include "config.hpp"
 
 PlantFSM::PlantFSM(): state_(PlantState::IDLE), stateStartTime_(millis()) {}
 
 void PlantFSM::update(int moisture) {
     switch (state_) {
         case (PlantState::IDLE):
-            if (moisture < DRY_THRESHOLD) {
+            if (moisture < Config::DRY_THRESHOLD) {
                 transitionTo(PlantState::DRY);
             }
             break;
@@ -20,13 +18,13 @@ void PlantFSM::update(int moisture) {
             break;
 
         case (PlantState::WATERING):
-            if (millis() - stateStartTime_ > WATERING_DURATION_MS) {
+            if (millis() - stateStartTime_ > Config::WATERING_DURATION_MS) {
                 transitionTo(PlantState::WAITING);
             }
             break;
 
         case (PlantState::WAITING):
-            if (millis() - stateStartTime_ > COOLDOWN_DURATION_MS) {
+            if (millis() - stateStartTime_ > Config::COOLDOWN_DURATION_MS) {
                 transitionTo(PlantState::IDLE);
             }
             break;

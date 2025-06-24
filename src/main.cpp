@@ -6,19 +6,7 @@
 #include "pump.hpp"
 #include "plant_fsm.hpp"
 #include "secrets.hpp"
-
-#define GPIO_SENSOR 32
-#define GPIO_PUMP 16
-
-const char* MQTT_BROKER = "test.mosquitto.org";  // Public MQTT broker for testing only
-const int MQTT_PORT = 1883;
-const char* MQTT_CLIENT_ID = "plantClient";
-const char* MQTT_TOPIC = "quenhtessential/plant/status";
-const unsigned long MQTT_PUBLISH_INTERVAL_MS = 10000;
-const unsigned long MQTT_RECONNECT_INTERVAL_MS = 5000;
-
-const TickType_t SENSOR_TASK_INTERVAL = pdMS_TO_TICKS(1000);
-const TickType_t CONTROL_TASK_INTERVAL = pdMS_TO_TICKS(500);
+#include "config.hpp"
 
 PlantFSM plantFsm;
 
@@ -28,22 +16,22 @@ PubSubClient mqttClient(espClient);
 
 QueueHandle_t moistureQueue;
 
-const int DRY_THRESHOLD = 3000;  // Temporary; need to actually calibrate
+const int DRY_THRESHOLD = 3000;  
 
 // Initialize devices
-Sensor sensor(GPIO_SENSOR);
-Pump pump(GPIO_PUMP);
+Sensor sensor(Config::SENSOR_PIN);
+Pump pump(Config::PUMP_PIN);
 
 void ensureMqttConnection() {
   static unsigned long lastReconnectAttempt = 0;
   unsigned long now = millis(); 
 
   // Guard for MQTT reconnection with throttling to prevent repeated failures
-  if ( ( !mqttClient.connected() ) && ( ( now - lastReconnectAttempt ) > MQTT_RECONNECT_INTERVAL_MS ) ) {
+  if ( ( !mqttClient.connected() ) && ( ( now - lastReconnectAttempt ) > Config::MQTT_RECONNECT_INTERVAL_MS ) ) {
     Serial.println("MQTT disconnected, attempting to reconnect . . .");
     lastReconnectAttempt = now;
 
-    if ( mqttClient.connect(MQTT_CLIENT_ID) ) {
+    if ( mqttClient.connect(Config::MQTT_CLIENT_ID) ) {
       Serial.println("MQTT reconnected!");
     } else {
       Serial.print("MQTT reconnect failed. State: ");
@@ -66,7 +54,7 @@ void SensorTask(void* pvParameters) {
     Serial.print("Moisture: ");
     Serial.println(moisture);
 
-    vTaskDelay(SENSOR_TASK_INTERVAL);
+    vTaskDelay(Config::SENSOR_TASK_INTERVAL);
   } 
 }
 
@@ -83,7 +71,7 @@ void ControlTask(void* pvParameters) {
 
     ensureMqttConnection();
 
-    if ( ( mqttClient.connected() ) && ( ( millis() - lastPublish ) > MQTT_PUBLISH_INTERVAL_MS ) ) {
+    if ( ( mqttClient.connected() ) && ( ( millis() - lastPublish ) > Config::MQTT_PUBLISH_INTERVAL_MS ) ) {
       char payload[64];
 
       // Format moisture reading string into payload buffer
@@ -92,12 +80,12 @@ void ControlTask(void* pvParameters) {
       // Test payload formatting
       Serial.println(payload);
 
-      mqttClient.publish( MQTT_TOPIC, payload );
+      mqttClient.publish( Config::MQTT_TOPIC, payload );
 
       lastPublish = millis();
     }
 
-    vTaskDelay(CONTROL_TASK_INTERVAL);
+    vTaskDelay(Config::CONTROL_TASK_INTERVAL);
   }
 }
 
@@ -120,9 +108,9 @@ void setup() {
   Serial.println( WiFi.localIP() );
 
   // Set up MQTT
-  mqttClient.setServer( MQTT_BROKER, MQTT_PORT );
+  mqttClient.setServer( Config::MQTT_BROKER, Config::MQTT_PORT );
 
-  if ( mqttClient.connect(MQTT_CLIENT_ID) ) {
+  if ( mqttClient.connect(Config::MQTT_CLIENT_ID) ) {
     Serial.println("MQTT connected!");
   } else {
     Serial.print("MQTT failed . . . State: ");
