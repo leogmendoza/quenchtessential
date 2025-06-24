@@ -67,6 +67,11 @@ void ControlTask(void* pvParameters) {
       mqttClient.publish( MQTT_TOPIC, payload );
     }
 
+    // Check task size
+    UBaseType_t stackRemaining = uxTaskGetStackHighWaterMark(NULL);
+    Serial.print("Stack left: ");
+    Serial.println(stackRemaining);
+
     vTaskDelay(CONTROL_TASK_INTERVAL);
   }
 }
@@ -119,7 +124,7 @@ void setup() {
   xTaskCreate(
     ControlTask, 
     "Control", 
-    1024, 
+    2048, 
     NULL, 
     1, 
     NULL
