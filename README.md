@@ -1,5 +1,5 @@
 # Quenchtessential: Remote Plant Monitoring
-> Water _quenches_ the thirst of plants, so thus it is _quintessential_.
+> Water _quenches_ the thirst of plants, thus it is _quintessential_.
 
 <img src="demo/absolute_cinema.png" width="45%">
 
