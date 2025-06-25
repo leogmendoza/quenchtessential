@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 
+const mqttHandler = require('./mqtt_handler');
+
 // Set up Express server
 const app = express();
 const PORT = 3000;
