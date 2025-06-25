@@ -1,5 +1,7 @@
 const mqtt = require('mqtt');
 
+const { insertReading } = require('./db');
+
 // Connect to public broker
 const client = mqtt.connect('mqtt://test.mosquitto.org');
 
@@ -26,7 +28,7 @@ client.on('message', (incomingTopic, messageBuffer) => {
 
             console.log('Received MQTT message:', payload);
 
-            // TODO: Save to DB later
+            insertReading(payload.moisture);
         }
     } catch (err) {
         console.error('Oh no, failed to parse MQTT message:', err.message);
