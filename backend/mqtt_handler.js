@@ -8,27 +8,27 @@ const topic = 'quenchtessential/plant/status';
 
 // Try to connect to MQTT broker, then subscribe to topic
 client.on('connect', () => {
-  console.log('Connected to MQTT broker!');
-  client.subscribe(topic, (err) => {
-    if (err) {
-      console.error('Subscription error:', err);
-    } else {
-      console.log(`Subscribed to topic: ${topic}`);
-    }
-  });
+    console.log('Connected to MQTT broker!');
+    client.subscribe(topic, (err) => {
+        if (err) {
+        console.error('Subscription error:', err);
+        } else {
+        console.log(`Subscribed to topic: ${topic}`);
+        }
+    });
 });
 
 // Try to receive message from broker
 client.on('message', (incomingTopic, messageBuffer) => {
-  try {
-    if (incomingTopic === topic) {
-      const payload = JSON.parse(messageBuffer.toString());
+    try {
+        if (incomingTopic === topic) {
+            const payload = JSON.parse(messageBuffer.toString());
 
-      console.log('Received MQTT message:', payload);
-      
-      // TODO: Save to DB later
+            console.log('Received MQTT message:', payload);
+
+            // TODO: Save to DB later
+        }
+    } catch (err) {
+        console.error('Oh no, failed to parse MQTT message:', err.message);
     }
-  } catch (err) {
-    console.error('Oh no, failed to parse MQTT message:', err.message);
-  }
-});
+    });
