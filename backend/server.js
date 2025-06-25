@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 
 const mqttHandler = require('./mqtt_handler');
+const { getRecentReadings } = require('./db');
 
 // Set up Express server
 const app = express();
@@ -19,3 +20,15 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
 });
+
+// Retrieve 20 most recent measurements
+app.get('/history', async (req, res) => {
+    try {
+        const rows = await getRecentReadings();
+        res.json(rows);
+    } catch (err) {
+        console.error('Failed to fetch readings:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+

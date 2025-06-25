@@ -17,6 +17,23 @@ function insertReading(moisture) {
     insertStatement.finalize();
 }
 
+// Used by server to retrieve last 20 measurements
+function getRecentReadings() {
+    return new Promise((resolve, reject) => {
+        db.all(
+            `SELECT id, moisture, timestamp
+            FROM readings
+            ORDER BY timestamp DESC
+            LIMIT 20`,
+        (err, rows) => {
+            if (err) reject(err);
+            else resolve(rows);
+        }
+        );
+    });
+}
+
 module.exports = {
-    insertReading
+    insertReading,
+    getRecentReadings
 };

@@ -13,9 +13,12 @@ client.on('connect', () => {
     console.log('Connected to MQTT broker!');
     client.subscribe(topic, (err) => {
         if (err) {
-        console.error('Subscription error:', err);
+            console.error('Subscription error:', err);
         } else {
-        console.log(`Subscribed to topic: ${topic}`);
+            console.log(`Subscribed to topic: ${topic}`);
+
+            // Fake message for testing purpose (unfortunately, im in an ECE 192 lecture rn ;-;)
+            client.emit('message', 'quenchtessential/plant/status', Buffer.from(JSON.stringify({ moisture: 6969 })));
         }
     });
 });
