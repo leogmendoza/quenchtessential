@@ -31,9 +31,11 @@ client.on('message', (incomingTopic, messageBuffer) => {
 
             console.log('Received MQTT message:', payload);
 
-            insertReading(payload.moisture);
+            if (payload.moisture !== undefined) {
+                insertReading(payload.moisture);
+            }
         }
     } catch (err) {
         console.error('Oh no, failed to parse MQTT message:', err.message);
     }
-    });
+});
