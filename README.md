@@ -8,3 +8,5 @@ Life is busy as an eng student, so I don't want my plant to feel neglected.. Als
 
 ## Currently . . .
 Building the full-stack app to support the ESP32!!
+
+[![Deploy frontend](https://github.com/leogmendoza/quenchtessential/actions/workflows/deploy.yml/badge.svg)](https://leogmendoza.github.io/quenchtessential/)
