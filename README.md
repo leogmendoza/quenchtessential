@@ -10,6 +10,11 @@ Life is busy as an eng student, so I don't want my plant to feel neglected.. Als
 Building the full-stack app to support the ESP32!!
 
 ## GitHub Actions Workflows
-[![Deploy frontend](https://github.com/leogmendoza/quenchtessential/actions/workflows/deploy.yml/badge.svg)](https://leogmendoza.github.io/quenchtessential/)
+## ✅ Project Status
 
-[![ESP32 Build](https://github.com/leogmendoza/quenchtessential/actions/workflows/esp32-build.yml/badge.svg)](https://github.com/leogmendoza/quenchtessential/actions/workflows/esp32-build.yml)
+[![Frontend Deploy](https://github.com/leogmendoza/quenchtessential/actions/workflows/frontend-cd.yml/badge.svg)](https://github.com/leogmendoza/quenchtessential/actions/workflows/frontend-cd.yml)
+
+[![ESP32 Build](https://github.com/leogmendoza/quenchtessential/actions/workflows/esp32-ci.yml/badge.svg)](https://github.com/leogmendoza/quenchtessential/actions/workflows/esp32-ci.yml)
+
+[![Backend CI](https://github.com/leogmendoza/quenchtessential/actions/workflows/backend-ci.yml/badge.svg)](https://github.com/leogmendoza/quenchtessential/actions/workflows/backend-ci.yml)
+
