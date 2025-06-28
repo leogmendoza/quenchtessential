@@ -1,0 +1,23 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  background-color: #f4f1ed;  /* egg shell?? */
+  color: #333;
+}
+
+.dashboard-container {
+  max-width: 800px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.dashboard-title {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #2e7d32;  /* foresty green */
+}

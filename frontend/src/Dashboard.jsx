@@ -1,3 +1,4 @@
+import './Dashboard.css';
 import { useState, useEffect } from 'react';
 
 import {
@@ -76,10 +77,10 @@ function Dashboard() {
     };
 
     return (
-    <div style={{ maxWidth: 800, margin: '2rem auto', textAlign: 'center' }}>
-        <h2>🌱 Quenchtessential Dashboard</h2>
-        <Line data={chartData} options={chartOptions} />
-    </div>
+        <div className="dashboard-container">
+            <h2 className="dashboard-title">🌱 Quenchtessential Dashboard</h2>
+            <Line data={chartData} options={chartOptions} />
+        </div>
     );
 };
 
