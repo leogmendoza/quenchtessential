@@ -48,33 +48,89 @@ function Dashboard() {
             label: 'Soil Moisture',
             data: readings.map(r => r.moisture),
             borderColor: 'green',
-            fill: false
+            fill: false,
+
+            borderColor: '#8b5e3c',             // Line:            Chocolate           
+            pointBackgroundColor: '#8b5e3c',    // Point Fill:      Chocolate     
+            pointBorderColor: '#5d4037'         // Point Outline:   Espresso
         } ]
     };
 
     // Configure the chart's formatting
     const chartOptions = {
         responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+                align: 'center',
+                labels: {
+                    color: '#ffffff',
+                    usePointStyle: true,
+                    boxWidth: 10
+                }
+                },
+                tooltip: {
+                    titleColor: '#ffffff',
+                    bodyColor: '#ffffff',
+                    backgroundColor: '#1b5e20'
+            }
+        },
         scales: {
             x: {
-            type: 'time',
-            time: {
-                tooltipFormat: 'MMM dd, HH:mm'
-            },
-            title: {
-                display: true,
-                text: 'Timestamp'
-            }
+                type: 'time',
+                time: {
+                    tooltipFormat: 'MMM dd, HH:mm'
+                },
+                ticks: {
+                    color: '#ffffff',
+                    font: {
+                        size: 12,
+                        weight: '500'
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Timestamp',
+                    color: '#ffffff',
+                    font: {
+                        size: 14,
+                        weight: '700'
+                    },
+                    align: 'center'
+                },
+                grid: {
+                    color: 'rgba(255, 255, 255, 0.2)',
+                    lineWidth: 1.5
+                }
+
             },
             y: {
-            beginAtZero: true,
-            title: {
-                display: true,
-                text: 'Moisture Level'
-            }
+                beginAtZero: true,
+                ticks: {
+                    color: '#ffffff',
+                    font: {
+                        size: 12,
+                        weight: '500'
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Moisture Level',
+                    color: '#ffffff',
+                    font: {
+                        size: 14,
+                        weight: '700'
+                    },
+                    align: 'center'
+                },
+                grid: {
+                    color: 'rgba(255, 255, 255, 0.2)',
+                    lineWidth: 1.5
+                }
             }
         }
     };
+
 
     return (
         <div className="dashboard-container">

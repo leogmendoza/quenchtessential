@@ -2,15 +2,19 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', Roboto, sans-serif;
-  background-color: #f4f1ed;  /* egg shell?? */
-  color: #333;
+  background-color:	#ede0d4;  /* Clay Wash */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
 .dashboard-container {
   max-width: 800px;
   margin: 4rem auto;
   padding: 2rem;
-  background-color: #ffffff;
+  background-color: #4caf50;  /* GOLF WANG-y green*/
+  color: white;
   border-radius: 16px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -19,5 +23,5 @@ body {
 .dashboard-title {
   font-size: 1.8rem;
   margin-bottom: 1.5rem;
-  color: #2e7d32;  /* foresty green */
+  color: #ffffff;
 }
