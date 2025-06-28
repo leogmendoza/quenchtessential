@@ -10,7 +10,6 @@ Life is busy as an eng student, so I don't want my plant to feel neglected.. Als
 Building the full-stack app to support the ESP32!!
 
 ## GitHub Actions Workflows
-## ✅ Project Status
 
 [![Frontend Deploy](https://github.com/leogmendoza/quenchtessential/actions/workflows/frontend-cd.yml/badge.svg)](https://github.com/leogmendoza/quenchtessential/actions/workflows/frontend-cd.yml)
 
