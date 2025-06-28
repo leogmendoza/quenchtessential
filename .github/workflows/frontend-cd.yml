@@ -1,4 +1,4 @@
-name: Quenchtessential Frontend Deployment on GitHub Pages
+name: Frontend Deployment on GitHub Pages
 
 on:
   push:
