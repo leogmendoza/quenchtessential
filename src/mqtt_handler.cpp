@@ -50,7 +50,7 @@ void MqttHandler::publish(int moisture) {
     } 
 
     // Format moisture reading string into payload buffer
-    snprintf( payload_, sizeof(payload_), "{\"plant1\": %d}", moisture );  // TODO: Add multiple sensors
+    snprintf( payload_, sizeof(payload_), "{\"moisture\": %d}", moisture );  // TODO: Add multiple sensors
 
     // Test payload formatting--TODO: Remove once full-stack is working
     Serial.print("[MQTT] Publishing: ");
