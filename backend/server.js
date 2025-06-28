@@ -13,7 +13,7 @@ app.use(cors());
 
 // Testing root route!
 app.get('/', (req, res) => {
-    res.send('Quenchtessential backend is running!');
+    res.send('Quenchtessential backend is running, woohoo!');
 });
 
 // Keep server running
