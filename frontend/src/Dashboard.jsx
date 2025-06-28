@@ -10,7 +10,7 @@ useEffect( () => {
         const json = await res.json();
 
         // Order by oldest to newest
-        setReadings(json.reverse()); 
+        setReadings( json.reverse() ); 
         } catch (err) {
             console.error('Failed to fetch data:', err);
         }
@@ -21,6 +21,17 @@ useEffect( () => {
 
     // Poll for a reading every 10 seconds
     const interval = setInterval(fetchData, 10000);
-    
+
     return () => clearInterval(interval); // cleanup on unmount
 }, [] );
+
+// Define the chart's input
+const chartData = {
+    labels: readings.map(r => r.timestamp),
+    datasets: [ {
+        label: 'Soil Moisture',
+        data: readings.map(r => r.moisture),
+        borderColor: 'green',
+        fill: false
+    } ]
+};
