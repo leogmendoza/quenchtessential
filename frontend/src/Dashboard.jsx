@@ -35,3 +35,27 @@ const chartData = {
         fill: false
     } ]
 };
+
+// Configure the chart's formatting
+const chartOptions = {
+    responsive: true,
+    scales: {
+        x: {
+        type: 'time',
+        time: {
+            tooltipFormat: 'MMM dd, HH:mm'
+        },
+        title: {
+            display: true,
+            text: 'Timestamp'
+        }
+        },
+        y: {
+        beginAtZero: true,
+        title: {
+            display: true,
+            text: 'Moisture Level'
+        }
+        }
+    }
+};
