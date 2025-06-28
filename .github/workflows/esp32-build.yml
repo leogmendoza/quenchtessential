@@ -1,0 +1,30 @@
+name: ESP32 Build
+
+on:
+  push:
+    paths:
+      - 'src/**'
+      - 'platformio.ini'
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'platformio.ini'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install PlatformIO
+        run: pip install platformio
+
+      - name: Run PlatformIO Build
+        run: pio run
