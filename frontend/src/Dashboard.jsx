@@ -59,3 +59,12 @@ const chartOptions = {
         }
     }
 };
+
+return (
+    <div style={{ maxWidth: 800, margin: '2rem auto', textAlign: 'center' }}>
+        <h2>🌱 Quenchtessential Dashboard</h2>
+        <Line data={chartData} options={chartOptions} />
+    </div>
+);
+
+export default Dashboard;
