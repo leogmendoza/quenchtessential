@@ -24,8 +24,8 @@ function Dashboard() {
         // Fetch moisture readings from backend
         const fetchData = async () => {
             try {
-                const res = await fetch('http://localhost:3000/history');
-                if (!res.ok) throw new Error('Network error');
+                const res = await fetch("https://quenchtessential-backend.onrender.com/history");
+                if (!res.ok) throw new Error("Network error");
 
                 const json = await res.json();
 
@@ -57,7 +57,6 @@ function Dashboard() {
         datasets: [ {
             label: 'Soil Moisture',
             data: readings.map(r => r.moisture),
-            borderColor: 'green',
             fill: false,
 
             borderColor: '#8b5e3c',             // Line:            Chocolate           
