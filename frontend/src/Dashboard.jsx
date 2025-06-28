@@ -17,18 +17,27 @@ ChartJS.register(TimeScale, LinearScale, PointElement, LineElement, Tooltip, Leg
 
 function Dashboard() {
     const [readings, setReadings] = useState([]);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect( () => {
         // Fetch moisture readings from backend
         const fetchData = async () => {
             try {
-            const res = await fetch('http://localhost:3000/history');
-            const json = await res.json();
+                setLoading(true);
 
-            // Order by oldest to newest
-            setReadings( json.reverse() ); 
+                const res = await fetch('http://localhost:3000/history');
+                if (!res.ok) throw new Error('Network error');
+
+                const json = await res.json();
+
+                // Order by oldest to newest
+                setReadings( json.reverse() ); 
+                setError(null);
             } catch (err) {
                 console.error('Failed to fetch data:', err);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -135,7 +144,16 @@ function Dashboard() {
     return (
         <div className="dashboard-container">
             <h2 className="dashboard-title">🌱 Quenchtessential Dashboard</h2>
-            <Line data={chartData} options={chartOptions} />
+            {error ? (
+                <p style={{ color: 'white' }}>{error}</p>
+            ) : loading ? (
+                <p style={{ color: 'white' }}>Loading moisture data...</p>
+            ) : readings.length === 0 ? (
+                <p style={{ color: 'white' }}>No readings yet.</p>
+            ) : (
+                <Line data={chartData} options={chartOptions} />
+            )}
+
         </div>
     );
 };

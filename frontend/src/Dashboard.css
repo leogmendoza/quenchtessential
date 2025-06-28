@@ -25,3 +25,19 @@ body {
   margin-bottom: 1.5rem;
   color: #ffffff;
 }
+
+/* Allow mobile responsiveness */
+@media (max-width: 600px) {
+  .dashboard-container {
+    padding: 1.5rem;
+    margin: 2rem 1rem;
+  }
+
+  .dashboard-title {
+    font-size: 1.4rem;
+  }
+
+  canvas {
+    max-width: 100%;
+  }
+}
