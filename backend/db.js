@@ -25,10 +25,10 @@ function getRecentReadings() {
             FROM readings
             ORDER BY timestamp DESC
             LIMIT 20`,
-        (err, rows) => {
-            if (err) reject(err);
-            else resolve(rows);
-        }
+            (err, rows) => {
+                if (err) reject(err);
+                else resolve(rows);
+            }
         );
     });
 }
