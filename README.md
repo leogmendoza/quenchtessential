@@ -17,3 +17,5 @@ Building the full-stack app to support the ESP32!!
 
 [![Backend Build](https://github.com/leogmendoza/quenchtessential/actions/workflows/backend-ci.yml/badge.svg)](https://github.com/leogmendoza/quenchtessential/actions/workflows/backend-ci.yml)
 
+**Backend API:**  
+[https://quenchtessential-backend.onrender.com/history](https://quenchtessential-backend.onrender.com/history)
