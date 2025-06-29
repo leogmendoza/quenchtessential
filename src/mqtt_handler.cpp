@@ -14,6 +14,8 @@ void MqttHandler::setup() {
 void MqttHandler::maintainConnection() {
     // Check for Wi-Fi status before trying MQTT
     if ( WiFi.status() != WL_CONNECTED ) {
+        Serial.println("[MQTT] Skipping reconnect cuz Wi-Fi is down.");
+
         return;  
     }
 
