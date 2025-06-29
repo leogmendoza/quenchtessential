@@ -32,8 +32,5 @@ jobs:
       - name: Install PlatformIO
         run: pip install platformio
 
-      - name: Inject FAKE secrets.hpp
-        run: cp inc/secrets_template.hpp inc/secrets.hpp
-
       - name: Run PlatformIO Build
         run: pio run
