@@ -11,9 +11,9 @@ Building the full-stack app to support the ESP32!!
 
 ## GitHub Actions Workflows
 
-[![Frontend Deploy](https://github.com/leogmendoza/quenchtessential/actions/workflows/frontend-cd.yml/badge.svg)](https://github.com/leogmendoza/quenchtessential/actions/workflows/frontend-cd.yml)
+[![Frontend Deployment](https://github.com/leogmendoza/quenchtessential/actions/workflows/frontend-cd.yml/badge.svg)](https://github.com/leogmendoza/quenchtessential/actions/workflows/frontend-cd.yml)
 
 [![ESP32 Build](https://github.com/leogmendoza/quenchtessential/actions/workflows/esp32-ci.yml/badge.svg)](https://github.com/leogmendoza/quenchtessential/actions/workflows/esp32-ci.yml)
 
-[![Backend CI](https://github.com/leogmendoza/quenchtessential/actions/workflows/backend-ci.yml/badge.svg)](https://github.com/leogmendoza/quenchtessential/actions/workflows/backend-ci.yml)
+[![Backend Build](https://github.com/leogmendoza/quenchtessential/actions/workflows/backend-ci.yml/badge.svg)](https://github.com/leogmendoza/quenchtessential/actions/workflows/backend-ci.yml)
 
