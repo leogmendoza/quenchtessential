@@ -34,7 +34,6 @@ function Dashboard({ renderInfo }) {
                 setReadings( json.reverse() ); 
 
                 if (json.length > 0) setHasLoadedOnce(true);
-                
                 setError(null);
             } catch (err) {
                 console.error('Failed to fetch data:', err);
