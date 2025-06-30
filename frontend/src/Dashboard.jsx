@@ -76,7 +76,7 @@ function Dashboard() {
                 labels: {
                     color: '#ffffff',
                     usePointStyle: true,
-                    boxWidth: 10
+                    boxWidth: 10,
                 }
                 },
                 tooltip: {
@@ -110,7 +110,7 @@ function Dashboard() {
                 },
                 title: {
                     display: true,
-                    text: 'Timestamp',
+                    text: 'Time',
                     color: '#ffffff',
                     font: {
                         size: 14,
@@ -135,7 +135,7 @@ function Dashboard() {
                 },
                 title: {
                     display: true,
-                    text: 'Moisture Level',
+                    text: 'Moisture',
                     color: '#ffffff',
                     font: {
                         size: 14,
@@ -154,24 +154,8 @@ function Dashboard() {
 
     return (
         <div className="dashboard-container">
-            <div style={{ marginBottom: '1rem' }}>
-            <label htmlFor="range-select" style={{ color: 'white', marginRight: '0.5rem' }}>
-                View Range:
-            </label>
-            <select
-                id="range-select"
-                value={range}
-                onChange={ (e) => setRange(e.target.value) }
-                style={{ padding: '0.3rem', borderRadius: '4px' }}
-            >
-                <option value="24h">Last 24 hours</option>
-                <option value="7d">Last 7 days</option>
-                <option value="all">All data</option>
-            </select>
-            </div>
-
             <h2 className="dashboard-title">Dashboard</h2>
-            
+
             {error && !hasLoadedOnce ? (
                 <p style={{ color: 'white' }}>{error}</p>
             ) : !hasLoadedOnce ? (
@@ -181,6 +165,19 @@ function Dashboard() {
             ) : (
                 <Line data={chartData} options={chartOptions} />
             )}
+
+            <div className="range-selector">
+                <label htmlFor="range-select">View Range:</label>
+                <select
+                    id="range-select"
+                    value={range}
+                    onChange={(e) => setRange(e.target.value)}
+                >
+                    <option value="24h">Last 24 hours</option>
+                    <option value="7d">Last 7 days</option>
+                    <option value="all">All data</option>
+                </select>
+            </div>
         </div>
     );
 };

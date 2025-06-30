@@ -15,14 +15,15 @@ body {
   padding: 2rem;
   background-color: #4caf50;  /* GOLF WANG-y green*/
   color: white;
-  border-radius: 16px;
+  border-radius: 16px; 
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
 .dashboard-title {
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  margin-top: 0rem;
+  margin-bottom: 1rem;
   color: #ffffff;
 }
 
@@ -42,28 +43,37 @@ body {
   }
 }
 
-#range-select {
-  background-color: #5d4037;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 0.4rem 2.5rem 0.4rem 0.75rem;
-  font-size: 1rem;
-  font-weight: 500;
-  font-family: inherit;
-  min-width: 120px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  appearance: none;
-
-  background-image: url("data:image/svg+xml;utf8,<svg fill='white' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M7 10l5 5 5-5'/></svg>");
-  background-repeat: no-repeat;
-  background-position: 100% center; 
-  background-size: 1rem;
-}
-
 #range-select:focus {
   outline: 2px solid #8b5e3c;
 }
 
+.range-selector {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 1rem; 
+  margin-bottom: 0rem;
+  gap: 0.5rem;
+  font-size: 0.75rem;   
+  color: white;
+}
+
+.range-selector select {
+  background-color: #5d4037;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.2rem 1rem 0.2rem 0.75rem;
+  min-width: 110px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  line-height: 1;
+  appearance: none;
+
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M7 10l5 5 5-5'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 0.4rem center;
+  background-size: 0.75rem;
+}
 
