@@ -51,10 +51,12 @@ function Dashboard() {
 
     // Define the chart's input
     const chartData = {
-        labels: readings.map(r => r.timestamp),
         datasets: [ {
             label: 'Soil Moisture',
-            data: readings.map(r => r.moisture),
+            data: readings.map(r => ({
+                x: r.timestamp,
+                y: r.moisture
+            })),
             fill: false,
 
             borderColor: '#8b5e3c',             // Line:            Chocolate           
