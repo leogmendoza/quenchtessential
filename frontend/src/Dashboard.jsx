@@ -38,7 +38,7 @@ function Dashboard() {
             } catch (err) {
                 console.error('Failed to fetch data:', err);
             } finally {
-                
+
                 setLoading(false);
             }
         };
@@ -92,6 +92,16 @@ function Dashboard() {
                     tooltipFormat: 'MMM dd, HH:mm'
                 },
                 ticks: {
+                    callback: function(value) {
+                        const date = new Date(value);
+                        
+                        return date.toLocaleString('en-US', {
+                            timeZone: 'America/Toronto',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            hour12: false
+                        });
+                    },
                     color: '#ffffff',
                     font: {
                         size: 12,
