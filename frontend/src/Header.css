@@ -1,0 +1,32 @@
+.dashboard-banner {
+  width: 100vw;
+  background-color: #4caf50;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.banner-title {
+  color: white;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  font-family: inherit;
+}
+
+.repo-link {
+  color: white;
+  background-color: #5d4037;
+  padding: 0.4rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.repo-link:hover {
+  background-color: #4e342e;
+}
+

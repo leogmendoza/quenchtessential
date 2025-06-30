@@ -170,7 +170,8 @@ function Dashboard() {
             </select>
             </div>
 
-            <h2 className="dashboard-title">🌱 Quenchtessential Dashboard</h2>
+            <h2 className="dashboard-title">Dashboard</h2>
+            
             {error && !hasLoadedOnce ? (
                 <p style={{ color: 'white' }}>{error}</p>
             ) : !hasLoadedOnce ? (

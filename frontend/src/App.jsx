@@ -1,7 +1,13 @@
+import Header from './Header';
 import Dashboard from './Dashboard';
 
 function App() {
-    return <Dashboard />;
+  return (
+    <>
+      <Header />
+      <Dashboard />
+    </>
+  );
 }
 
 export default App;
