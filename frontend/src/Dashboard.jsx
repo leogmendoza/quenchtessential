@@ -19,12 +19,13 @@ function Dashboard() {
     const [readings, setReadings] = useState([]);
     const [error, setError] = useState(null);
     const [hasLoadedOnce, setHasLoadedOnce] = useState(false);
+    const [range, setRange] = useState("24h");
 
     useEffect( () => {
         // Fetch moisture readings from backend
         const fetchData = async () => {
             try {
-                const res = await fetch("https://quenchtessential-backend.onrender.com/history");
+                const res = await fetch(`https://quenchtessential-backend.onrender.com/history?range=${range}`);
                 if (!res.ok) throw new Error("Network error");
 
                 const json = await res.json();
@@ -98,7 +99,7 @@ function Dashboard() {
                             timeZone: 'America/Toronto',
                             hour: '2-digit',
                             minute: '2-digit',
-                            hour12: false
+                            hour12: true
                         });
                     },
                     color: '#ffffff',
@@ -153,6 +154,22 @@ function Dashboard() {
 
     return (
         <div className="dashboard-container">
+            <div style={{ marginBottom: '1rem' }}>
+            <label htmlFor="range-select" style={{ color: 'white', marginRight: '0.5rem' }}>
+                View range:
+            </label>
+            <select
+                id="range-select"
+                value={range}
+                onChange={ (e) => setRange(e.target.value) }
+                style={{ padding: '0.3rem', borderRadius: '4px' }}
+            >
+                <option value="24h">Last 24 hours</option>
+                <option value="7d">Last 7 days</option>
+                <option value="all">All data</option>
+            </select>
+            </div>
+
             <h2 className="dashboard-title">🌱 Quenchtessential Dashboard</h2>
             {error && !hasLoadedOnce ? (
                 <p style={{ color: 'white' }}>{error}</p>

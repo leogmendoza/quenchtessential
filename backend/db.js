@@ -18,18 +18,23 @@ function insertReading(moisture) {
 }
 
 // Used by server to retrieve last 20 measurements
-function getRecentReadings() {
+function getRecentReadings(range = "24h") {
     return new Promise((resolve, reject) => {
-        db.all(
-            `SELECT id, moisture, timestamp
-            FROM readings
-            ORDER BY timestamp DESC
-            LIMIT 20`,
-            (err, rows) => {
-                if (err) reject(err);
-                else resolve(rows);
-            }
-        );
+        let query = `SELECT id, moisture, timestamp FROM readings`;
+        const params = [];
+
+        if (range === "24h") {
+            query += ` WHERE timestamp >= datetime('now', '-1 day')`;
+        } else if (range === "7d") {
+            query += ` WHERE timestamp >= datetime('now', '-7 days')`;
+        }
+
+        query += ` ORDER BY timestamp DESC`;
+
+        db.all(query, params, (err, rows) => {
+            if (err) reject(err);
+            else resolve(rows);
+        });
     });
 }
 

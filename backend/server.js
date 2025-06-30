@@ -23,8 +23,10 @@ app.listen(PORT, () => {
 
 // Retrieve 20 most recent measurements
 app.get('/history', async (req, res) => {
+    const range = req.query.range || '24h';
+
     try {
-        const rows = await getRecentReadings();
+        const rows = await getRecentReadings(range);
         res.json(rows);
     } catch (err) {
         console.error('Failed to fetch readings:', err);
