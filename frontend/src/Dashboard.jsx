@@ -78,11 +78,11 @@ function Dashboard() {
                     usePointStyle: true,
                     boxWidth: 10,
                 }
-                },
-                tooltip: {
-                    titleColor: '#ffffff',
-                    bodyColor: '#ffffff',
-                    backgroundColor: '#1b5e20'
+            },
+            tooltip: {
+                titleColor: '#ffffff',
+                bodyColor: '#ffffff',
+                backgroundColor: '#1b5e20'
             }
         },
         scales: {
