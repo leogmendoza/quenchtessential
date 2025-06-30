@@ -53,7 +53,7 @@ function Dashboard() {
         datasets: [ {
             label: 'Soil Moisture',
             data: readings.map(r => ({
-                x: new Date(r.timestamp),
+                x: new Date(r.timestamp + ' UTC')
                 y: r.moisture
             })),
             fill: false,
