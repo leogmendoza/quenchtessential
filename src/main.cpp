@@ -16,7 +16,7 @@ WiFiClient espClient;
 PubSubClient mqttClient(espClient);
 MqttHandler mqtt(mqttClient);
 
-Plant plant( Config::SENSOR_PIN, Config::PUMP_PIN );
+Plant plant( Config::SENSOR_PIN, Config::PUMP_PIN, &mqtt );
 
 void ControlTask(void* pvParameters) {
     for (;;) {

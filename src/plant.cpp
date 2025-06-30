@@ -1,6 +1,6 @@
 #include "plant.hpp"
 
-Plant::Plant( int sensorPin, int pumpPin ): sensor_(sensorPin), pump_(pumpPin), lastMoisture_(0) {}
+Plant::Plant(int sensorPin, int pumpPin, MqttHandler* mqtt) : sensor_(sensorPin), pump_(pumpPin), fsm_(mqtt), lastMoisture_(0) {}
 
 void Plant::update() {
     lastMoisture_ = sensor_.readMoisture();

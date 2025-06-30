@@ -2,6 +2,8 @@
 
 #include <Arduino.h>
 
+#include <mqtt_handler.hpp>
+
 enum class PlantState {
     IDLE,
     DRY,
@@ -11,12 +13,13 @@ enum class PlantState {
 
 class PlantFSM {
     public:
-        PlantFSM();
+        PlantFSM(MqttHandler* mqtt);
 
         void update(int moisture);
         bool isWatering() const;
 
     private:
+        MqttHandler* mqtt_;
         PlantState state_;
         unsigned long stateStartTime_;
 

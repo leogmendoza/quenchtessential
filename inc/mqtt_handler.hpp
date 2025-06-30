@@ -11,7 +11,7 @@ class MqttHandler {
         void maintainConnection();
         
         void publish(int moisture);
-
+        void publishWateredEvent();
     private:
         PubSubClient& client_;
         unsigned long lastReconnectAttempt_ = 0;

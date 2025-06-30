@@ -6,7 +6,7 @@
 
 class Plant {
     public:
-        Plant( int sensorPin, int pumpPin );
+        Plant( int sensorPin, int pumpPin, MqttHandler* mqtt );
 
         void update();
         int getMoisture() const;

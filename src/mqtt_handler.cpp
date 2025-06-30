@@ -61,3 +61,13 @@ void MqttHandler::publish(int moisture) {
     client_.publish( Config::MQTT_TOPIC, payload_ );
     lastPublish_ = now;
 }
+
+void MqttHandler::publishWateredEvent() {
+    if ( !client_.connected() ) {
+        return;
+    }
+
+    const char* payload = "{\"event\": \"watered\"}";
+    Serial.println("[MQTT] Publishing watering event");
+    client_.publish( Config::MQTT_TOPIC, payload );
+}

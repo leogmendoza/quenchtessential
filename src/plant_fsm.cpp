@@ -3,7 +3,7 @@
 #include <Arduino.h>
 #include "config.hpp"
 
-PlantFSM::PlantFSM(): state_(PlantState::IDLE), stateStartTime_(millis()) {}
+PlantFSM::PlantFSM(MqttHandler* mqtt): mqtt_(mqtt), state_(PlantState::IDLE), stateStartTime_(millis()) {}
 
 void PlantFSM::update(int moisture) {
     switch (state_) {
@@ -38,4 +38,8 @@ bool PlantFSM::isWatering() const {
 void PlantFSM::transitionTo(PlantState newState) {
     state_ = newState;
     stateStartTime_ = millis();
+
+    if (newState == PlantState::WATERING && mqtt_) {
+        mqtt_->publishWateredEvent();
+    }
 }
