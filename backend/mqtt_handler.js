@@ -1,6 +1,6 @@
 const mqtt = require('mqtt');
 
-const { insertReading } = require('./db');
+const { insertReading, insertWateringEvent } = require('./db');
 
 // Connect to public broker
 const client = mqtt.connect('mqtt://test.mosquitto.org');
@@ -19,6 +19,8 @@ client.on('connect', () => {
 
             // Fake message for testing purpose (unfortunately, im in an ECE 192 lecture rn ;-;)
             client.emit('message', 'quenchtessential/plant/status', Buffer.from(JSON.stringify({ moisture: 6969 })));
+
+              client.emit('message', 'quenchtessential/plant/status', Buffer.from(JSON.stringify({ event: "watered" })));
         }
     });
 });
@@ -33,6 +35,10 @@ client.on('message', (incomingTopic, messageBuffer) => {
 
             if (payload.moisture !== undefined) {
                 insertReading(payload.moisture);
+            }
+
+            if (payload.event === 'watered') {
+                insertWateringEvent();
             }
         }
     } catch (err) {

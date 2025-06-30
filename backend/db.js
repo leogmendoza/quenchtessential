@@ -1,11 +1,19 @@
 const sqlite3 = require('sqlite3').verbose();
 
-// Set  up DB file and table (if they don't already exist)
+// Set  up DB file and table (if they don't already exist) for Moisture Levels
 const db = new sqlite3.Database('data.db');
 db.run(`
     CREATE TABLE IF NOT EXISTS readings (
         id          INTEGER     PRIMARY KEY AUTOINCREMENT,
         moisture    INTEGER     NOT NULL,
+        timestamp   DATETIME    DEFAULT CURRENT_TIMESTAMP
+    )
+`);
+
+// Set  up DB file and table (if they don't already exist) for Last Watered Info
+db.run(`
+    CREATE TABLE IF NOT EXISTS watering_events (
+        id          INTEGER     PRIMARY KEY AUTOINCREMENT,
         timestamp   DATETIME    DEFAULT CURRENT_TIMESTAMP
     )
 `);
@@ -38,7 +46,28 @@ function getRecentReadings(range = "24h") {
     });
 }
 
+function insertWateringEvent() {
+    const statement = db.prepare('INSERT INTO watering_events DEFAULT VALUES');
+    statement.run();
+    statement.finalize();
+}
+
+function getLastWatered() {
+    return new Promise((resolve, reject) => {
+        db.get(
+            `SELECT timestamp FROM watering_events ORDER BY timestamp DESC LIMIT 1`,
+            [],
+            (err, row) => {
+                if (err) reject(err);
+                else resolve(row?.timestamp || null);
+            }
+        );
+    });
+}
+
 module.exports = {
     insertReading,
-    getRecentReadings
+    getRecentReadings,
+    insertWateringEvent,
+    getLastWatered
 };

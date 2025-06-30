@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 
 const mqttHandler = require('./mqtt_handler');
-const { getRecentReadings } = require('./db');
+const { getRecentReadings, getLastWatered } = require('./db');
 
 // Set up Express server
 const app = express();
@@ -21,7 +21,7 @@ app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
 });
 
-// Retrieve 20 most recent measurements
+// Retrieve moisuture measurements
 app.get('/history', async (req, res) => {
     const range = req.query.range || '24h';
 
@@ -34,3 +34,18 @@ app.get('/history', async (req, res) => {
     }
 });
 
+// Retrieve watering info
+app.get('/last-watered', async (req, res) => {
+    try {
+        const timestamp = await getLastWatered();
+
+        if (timestamp) {
+            res.json({ lastWatered: timestamp });
+        } else {
+            res.status(404).json({ error: 'No watering events recorded' });
+        }
+    } catch (err) {
+        console.error('Failed to fetch last watered timestamp:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
