@@ -11,7 +11,6 @@ import {
   Legend
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import 'chartjs-adapter-date-fns';
 
 ChartJS.register(TimeScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
 
@@ -89,7 +88,6 @@ function Dashboard() {
                 type: 'time',
                 time: {
                     tooltipFormat: 'MMM dd, HH:mm',
-                    displayFormats: {hour: 'HH:mm'}
                 },
                 ticks: {
                     callback: function(value) {
