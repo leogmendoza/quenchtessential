@@ -10,7 +10,8 @@ body {
 }
 
 .dashboard-container {
-  max-width: 400px;
+  width: 100%;
+  max-width: 500px;
   margin: 0;
   padding: 2rem;
   background-color: #4caf50;  /* GOLF WANG-y green*/
@@ -18,11 +19,14 @@ body {
   border-radius: 16px; 
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .dashboard-title {
   font-size: 1.5rem;
-  margin-top: 0rem;
+  margin-top: -0.25rem;
   margin-bottom: 1rem;
   color: #ffffff;
 }

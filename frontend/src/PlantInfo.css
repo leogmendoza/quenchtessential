@@ -7,6 +7,9 @@
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   text-align: center;
   margin-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .plant-image {
@@ -17,8 +20,11 @@
 
 .plant-name {
   font-size: 1.5rem;
-  font-weight: bold;
-  margin: 0;
+  font-weight: 700;
+  margin-top: 0.25rem;
+  margin-bottom: 1rem;
+  color: #ffffff;
+  font-family: 'Segoe UI', Roboto, sans-serif;
 }
 
 .plant-species {

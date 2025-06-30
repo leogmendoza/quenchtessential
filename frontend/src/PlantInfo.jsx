@@ -29,19 +29,19 @@ function PlantInfo({ averageMoisture }) {
 
     return (
         <div className="plant-info-card">
-        <h3 className="plant-name">Plant Name</h3>
-        <p className="plant-species">Plant Species</p>
+        <h3 className="plant-name">Plant Info</h3>
         <img 
             src="bok_choy_wide.jpg" 
             alt="Plant" 
             className="plant-image"
         />
+        <p className="plant-species">LeBloom (Peace Lily)</p>
         {averageMoisture !== null && (
-            <p className="plant-stat">Avg Moisture (Last 24 h): {averageMoisture}</p>
+            <p className="plant-stat" align="left"><strong>Avg Moisture (Last 24 h)</strong>: {averageMoisture}</p>
         )}
 
         {lastWatered && (
-            <p className="plant-stat">Last Watered: {lastWatered}</p>
+            <p className="plant-stat" align="left"><strong>Last Watered</strong>: {lastWatered}</p>
         )}
         </div>
     );
