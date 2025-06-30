@@ -37,9 +37,7 @@ function Dashboard() {
                 setError(null);
             } catch (err) {
                 console.error('Failed to fetch data:', err);
-            } finally {
-                setLoading(false);
-            }
+            } 
         };
 
         // Fetch upon startup
@@ -88,9 +86,21 @@ function Dashboard() {
             x: {
                 type: 'time',
                 time: {
-                    tooltipFormat: 'MMM dd, HH:mm'
+                    parser: 'isoDate',
+                    tooltipFormat: 'MMM dd, HH:mm',
+                    displayFormats: {hour: 'HH:mm'}
                 },
                 ticks: {
+                    callback: function(value) {
+                        const utcDate = new Date(value);
+
+                        return utcDate.toLocaleString('en-US', {
+                            timeZone: 'America/Toronto',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            hour12: false
+                        });
+                    },
                     color: '#ffffff',
                     font: {
                         size: 12,

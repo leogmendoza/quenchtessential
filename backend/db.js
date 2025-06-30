@@ -6,7 +6,7 @@ db.run(`
     CREATE TABLE IF NOT EXISTS readings (
         id          INTEGER     PRIMARY KEY AUTOINCREMENT,
         moisture    INTEGER     NOT NULL,
-        timestamp   DATETIME    DEFAULT (datetime('now', 'localtime'))
+        timestamp   DATETIME    DEFAULT CURRENT_TIMESTAMP
     )
 `);
 
