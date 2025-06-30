@@ -17,7 +17,7 @@ client.on('connect', () => {
         } else {
             console.log(`Subscribed to topic: ${topic}`);
 
-            // Fake message for testing purpose (unfortunately, im in an ECE 192 lecture rn ;-;)
+            // FAKE MESSAGE for testing purpose (unfortunately, im in an ECE 192 lecture rn ;-;)
             client.emit('message', 'quenchtessential/plant/status', Buffer.from(JSON.stringify({ moisture: 6969 })));
         }
     });
