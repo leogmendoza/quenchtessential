@@ -15,7 +15,7 @@ import 'chartjs-adapter-date-fns';
 
 ChartJS.register(TimeScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
 
-function Dashboard() {
+function Dashboard({ renderInfo }) {
     const [readings, setReadings] = useState([]);
     const [error, setError] = useState(null);
     const [hasLoadedOnce, setHasLoadedOnce] = useState(false);
@@ -151,8 +151,15 @@ function Dashboard() {
         }
     };
 
+    const avgMoisture =
+        readings.length > 0
+            ? Math.round(
+                readings.reduce((sum, r) => sum + r.moisture, 0) / readings.length
+            )
+            : null;
 
     return (
+        <>
         <div className="dashboard-container">
             <h2 className="dashboard-title">Dashboard</h2>
 
@@ -179,6 +186,8 @@ function Dashboard() {
                 </select>
             </div>
         </div>
+        {renderInfo && renderInfo(avgMoisture)}
+        </>
     );
 };
 

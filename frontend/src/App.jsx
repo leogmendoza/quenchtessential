@@ -1,11 +1,14 @@
 import Header from './Header';
+import PlantInfo from './PlantInfo';
 import Dashboard from './Dashboard';
 
 function App() {
   return (
     <>
       <Header />
-      <Dashboard />
+        <main className="app-main">
+          <Dashboard renderInfo={(avgMoisture) => <PlantInfo averageMoisture={avgMoisture} />}/>
+        </main>
     </>
   );
 }
