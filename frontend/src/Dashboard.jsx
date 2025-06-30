@@ -38,6 +38,7 @@ function Dashboard() {
             } catch (err) {
                 console.error('Failed to fetch data:', err);
             } finally {
+                
                 setLoading(false);
             }
         };
