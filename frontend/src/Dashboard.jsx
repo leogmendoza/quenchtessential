@@ -48,7 +48,7 @@ function Dashboard() {
         const interval = setInterval(fetchData, 10000);
 
         return () => clearInterval(interval); // cleanup on unmount
-    }, [] );
+    }, [range] );
 
     // Define the chart's input
     const chartData = {
@@ -156,7 +156,7 @@ function Dashboard() {
         <div className="dashboard-container">
             <div style={{ marginBottom: '1rem' }}>
             <label htmlFor="range-select" style={{ color: 'white', marginRight: '0.5rem' }}>
-                View range:
+                View Range:
             </label>
             <select
                 id="range-select"
