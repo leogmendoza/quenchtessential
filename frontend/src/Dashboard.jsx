@@ -88,7 +88,6 @@ function Dashboard() {
             x: {
                 type: 'time',
                 time: {
-                    parser: 'isoDate',
                     tooltipFormat: 'MMM dd, HH:mm',
                     displayFormats: {hour: 'HH:mm'}
                 },
