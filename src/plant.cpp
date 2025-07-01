@@ -6,6 +6,10 @@ void Plant::update() {
     lastMoisture_ = sensor_.readMoisture();
     fsm_.update(lastMoisture_);
     pump_.setState( fsm_.isWatering() );
+
+    // Temporary Logging
+    Serial.print("[TEST] Cap Reading: ");
+    Serial.println(lastMoisture_);
 }
 
 int Plant::getMoisture() const {

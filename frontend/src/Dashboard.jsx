@@ -19,7 +19,7 @@ function Dashboard({ renderInfo }) {
     const [readings, setReadings] = useState([]);
     const [error, setError] = useState(null);
     const [hasLoadedOnce, setHasLoadedOnce] = useState(false);
-    const [range, setRange] = useState("24h");
+    const [range, setRange] = useState("live");
 
     useEffect( () => {
         // Fetch moisture readings from backend
