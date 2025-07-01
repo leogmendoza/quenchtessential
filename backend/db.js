@@ -81,7 +81,6 @@ async function getLastWatered() {
 
 initTables().catch(console.error);
 
-
 module.exports = {
     insertReading,
     getRecentReadings,
