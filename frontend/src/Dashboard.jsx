@@ -157,6 +157,9 @@ function Dashboard({ renderInfo }) {
             )
             : null;
 
+
+    console.log("Chart data", chartData.datasets[0].data);
+
     return (
         <>
         <div className="dashboard-container">

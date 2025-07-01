@@ -6,12 +6,12 @@ function PlantInfo({ averageMoisture }) {
     const [lastWatered, setLastWatered] = useState(null);
 
     useEffect(() => {
-    fetch("http://localhost:3000/last-watered")
+    fetch("https://quenchtessential-backend.onrender.com/last-watered")
         .then((res) => res.json())
         .then((data) => {
         if (data.lastWatered) {
             const date = new Date(data.lastWatered + ' UTC');
-            
+
             setLastWatered(date.toLocaleString('en-US', {
             timeZone: 'America/Toronto',
             hour: 'numeric',

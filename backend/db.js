@@ -37,7 +37,7 @@ async function insertReading(moisture) {
 
 // Used by server to retrieve measurements based on selected range
 async function getRecentReadings(range = "24h") {
-    let query = `SELECT id, moisture, timestamp FROM readings`;
+    let query = `SELECT id, moisture, datetime(timestamp) as timestamp FROM readings`;
     const params = [];
 
     if (range === "24h") {
