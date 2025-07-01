@@ -32,14 +32,14 @@ function getRecentReadings(range = "24h") {
         const params = [];
 
         if (range === "24h") {
-            query += ` WHERE timestamp >= datetime('now', '-1 day')`;
+            query += ` WHERE timestamp >= datetime('now', '-1 day') ORDER BY timestamp DESC`;
         } else if (range === "7d") {
-            query += ` WHERE timestamp >= datetime('now', '-7 days')`;
+            query += ` WHERE timestamp >= datetime('now', '-7 days') ORDER BY timestamp DESC`;
         } else if (range === "live") {
-            query += ` LIMIT 20`;
+            query += ` ORDER BY timestamp DESC LIMIT 20`;
+        } else {
+            query += ` ORDER BY timestamp DESC`;
         }
-
-        query += ` ORDER BY timestamp DESC`;
 
         db.all(query, params, (err, rows) => {
             if (err) reject(err);
