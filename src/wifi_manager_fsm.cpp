@@ -12,7 +12,7 @@ void WifiManagerFSM::begin() {
 
     // If not connected, open access point (AP) for user to configure SSID
     state_ = WifiState::CONFIG;
-    connected_ = wm.autoConnect("Quenchtessential-WiFi-Config");
+    connected_ = wm.autoConnect("Quenchtessential-Config");
 
     if (connected_) {
         Serial.println("[Wi-Fi] Beamed up!");

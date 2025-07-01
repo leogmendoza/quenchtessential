@@ -3,14 +3,16 @@
 #include <Arduino.h>
 
 namespace Config {
-    constexpr gpio_num_t SENSOR_PIN = GPIO_NUM_32;
-    constexpr gpio_num_t PUMP_PIN   = GPIO_NUM_16;
+    constexpr int WIFI_LED_PIN = 2;  // Onboard LED
 
-    constexpr TickType_t SENSOR_TASK_INTERVAL  = pdMS_TO_TICKS(1000);
+    constexpr gpio_num_t SENSOR_PIN = GPIO_NUM_32;
+    constexpr gpio_num_t PUMP_PIN   = GPIO_NUM_14;
+
+    constexpr TickType_t SENSOR_TASK_INTERVAL  = pdMS_TO_TICKS(1000);   // Deprecated
     constexpr TickType_t CONTROL_TASK_INTERVAL = pdMS_TO_TICKS(500);
 
     constexpr unsigned long WATERING_DURATION_MS = 3500;    // Time to pump ~100 mL of water (x1 per week frequency)
-    constexpr unsigned long COOLDOWN_DURATION_MS = 5000;
+    constexpr unsigned long COOLDOWN_DURATION_MS = 10000;
 
     constexpr unsigned long WIFI_RECONNECT_INTERVAL_MS = 5000;
     constexpr unsigned long MQTT_PUBLISH_INTERVAL_MS   = 10000;
