@@ -35,6 +35,8 @@ function getRecentReadings(range = "24h") {
             query += ` WHERE timestamp >= datetime('now', '-1 day')`;
         } else if (range === "7d") {
             query += ` WHERE timestamp >= datetime('now', '-7 days')`;
+        } else if (range === "live") {
+            query += ` LIMIT 20`;
         }
 
         query += ` ORDER BY timestamp DESC`;

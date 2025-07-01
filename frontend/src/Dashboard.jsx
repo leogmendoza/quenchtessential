@@ -179,6 +179,7 @@ function Dashboard({ renderInfo }) {
                     value={range}
                     onChange={(e) => setRange(e.target.value)}
                 >
+                    <option value="live">Live (Last 20)</option>
                     <option value="24h">Last 24 hours</option>
                     <option value="7d">Last 7 days</option>
                     <option value="all">All data</option>
