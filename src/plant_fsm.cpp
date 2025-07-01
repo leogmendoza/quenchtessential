@@ -8,7 +8,7 @@ PlantFSM::PlantFSM(MqttHandler* mqtt): mqtt_(mqtt), state_(PlantState::IDLE), st
 void PlantFSM::update(int moisture) {
     switch (state_) {
         case (PlantState::IDLE):
-            if (moisture < Config::DRY_THRESHOLD) {
+            if (moisture < Config::PLANT_THIRSTY_THRESHOLD_PERCENT) {
                 transitionTo(PlantState::DRY);
             }
             break;
