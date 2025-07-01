@@ -3,13 +3,10 @@
 Plant::Plant(int sensorPin, int pumpPin, MqttHandler* mqtt) : sensor_(sensorPin), pump_(pumpPin), fsm_(mqtt), lastMoisture_(0) {}
 
 void Plant::update() {
+    // Percentage, not raw ADC value
     lastMoisture_ = sensor_.readMoisture();
     fsm_.update(lastMoisture_);
     pump_.setState( fsm_.isWatering() );
-
-    // Temporary Logging
-    Serial.print("[TEST] Cap Reading: ");
-    Serial.println(lastMoisture_);
 }
 
 int Plant::getMoisture() const {

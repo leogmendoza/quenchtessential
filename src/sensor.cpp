@@ -9,7 +9,7 @@ Sensor::Sensor(int pin) : pin_(pin) {
 
 int Sensor::readMoisture() {
     int raw = analogRead(pin_);
-    int percent = map(raw, Config::PLANT_DRY_THRESHOLD_RAW, Config::PLANT_WET_THRESHOLD_RAW, 0, 100);
+    int percent = map(raw, Config::PLANT_ABSOLUTE_DRY_THRESHOLD_RAW, Config::PLANT_ABSOLUTE_WET_THRESHOLD_RAW, 0, 100);
 
     return constrain(percent, 0, 100);
 }

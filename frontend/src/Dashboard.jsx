@@ -109,7 +109,7 @@ function Dashboard({ renderInfo }) {
                 },
                 title: {
                     display: true,
-                    text: 'Time',
+                    text: 'Time (EST)',
                     color: '#ffffff',
                     font: {
                         size: 14,
@@ -134,7 +134,7 @@ function Dashboard({ renderInfo }) {
                 },
                 title: {
                     display: true,
-                    text: 'Moisture',
+                    text: 'Moisture (%)',
                     color: '#ffffff',
                     font: {
                         size: 14,
