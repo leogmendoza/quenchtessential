@@ -26,12 +26,12 @@ namespace Config {
     constexpr int PLANT_WET_THRESHOLD_RAW = 2775;     // Watered with 1 cup
 
     // Arbitrary thresholds
-    constexpr int PLANT_ABSOLUTE_DRY_THRESHOLD_RAW = 3250;     // "Lower" bound for percentage
-    constexpr int PLANT_ABSOLUTE_WET_THRESHOLD_RAW = 2500;     // "Upper" bound for percentage
+    constexpr int PLANT_ABSOLUTE_DRY_THRESHOLD_RAW = 3400;     // "Lower" bound for percentage
+    constexpr int PLANT_ABSOLUTE_WET_THRESHOLD_RAW = 2400;     // "Upper" bound for percentage
 
     // Actual raw moisture value used when determining when to water
     constexpr int PLANT_THIRSTY_THRESHOLD_RAW = 3000;      // Aiming for watering twice a week with half the weekly dose (100 mL every 2 days)
-    constexpr int PLANT_THIRSTY_THRESHOLD_PERCENT = 33;    // = [ 100 * (3250 - 3000) ] / (3250 - 2500) 
+    constexpr int PLANT_THIRSTY_THRESHOLD_PERCENT = 40;    // = [ 100 * (3400 - 3000) ] / (3400 - 2400) 
 
     // Mostly for reference
     constexpr int SENSOR_DRY_RAW = 1650;  // Sensor completely submerged in water (minimum)
