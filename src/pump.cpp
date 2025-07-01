@@ -3,7 +3,9 @@
 
 Pump::Pump(int pin) : pin_(pin) {
     pinMode(pin_, OUTPUT);
-    digitalWrite(pin_, LOW);
+    
+    // Pump is active-low, so instantiate with HIGH
+    digitalWrite(pin_, HIGH);
 }
 
 void Pump::setState(bool on) {
