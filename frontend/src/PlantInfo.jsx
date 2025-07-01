@@ -10,7 +10,7 @@ function PlantInfo({ averageMoisture }) {
         .then((res) => res.json())
         .then((data) => {
         if (data.lastWatered) {
-            const date = new Date(data.lastWatered + ' UTC');
+            const date = new Date(data.lastWatered);
 
             setLastWatered(date.toLocaleString('en-US', {
             timeZone: 'America/Toronto',
