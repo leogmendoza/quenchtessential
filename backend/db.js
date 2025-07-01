@@ -1,71 +1,85 @@
-const sqlite3 = require('sqlite3').verbose();
+require('dotenv').config();
 
-// Set  up DB file and table (if they don't already exist) for Moisture Levels
-const db = new sqlite3.Database('data.db');
-db.run(`
-    CREATE TABLE IF NOT EXISTS readings (
-        id          INTEGER     PRIMARY KEY AUTOINCREMENT,
-        moisture    INTEGER     NOT NULL,
-        timestamp   DATETIME    DEFAULT CURRENT_TIMESTAMP
-    )
-`);
+const { Pool } = require('pg');
 
-// Set  up DB file and table (if they don't already exist) for Last Watered Info
-db.run(`
-    CREATE TABLE IF NOT EXISTS watering_events (
-        id          INTEGER     PRIMARY KEY AUTOINCREMENT,
-        timestamp   DATETIME    DEFAULT CURRENT_TIMESTAMP
-    )
-`);
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false }
+});
+
+async function initTables() {
+    // Moisture Levels
+    await pool.query(`
+        CREATE TABLE IF NOT EXISTS readings (
+        id SERIAL PRIMARY KEY,
+        moisture INTEGER NOT NULL,
+        timestamp TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+        )
+    `);
+
+    // Last Watered
+    await pool.query(`
+        CREATE TABLE IF NOT EXISTS watering_events (
+        id SERIAL PRIMARY KEY,
+        timestamp TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+        )
+    `);
+}
 
 // Used by mqtt_handler to load measurements into the DB
-function insertReading(moisture) {
-    const insertStatement = db.prepare('INSERT INTO readings (moisture) VALUES (?)');
-    insertStatement.run(moisture);
-    insertStatement.finalize();
+async function insertReading(moisture) {
+    try {
+        await pool.query('INSERT INTO readings (moisture) VALUES ($1)', [moisture]);
+    } catch (err) {
+        console.error('Failed to insert reading:', err);
+    }
 }
 
-// Used by server to retrieve last 20 measurements
-function getRecentReadings(range = "24h") {
-    return new Promise((resolve, reject) => {
-        let query = `SELECT id, moisture, timestamp FROM readings`;
-        const params = [];
+// Used by server to retrieve measurements based on selected range
+async function getRecentReadings(range = "24h") {
+    let query = `SELECT id, moisture, timestamp FROM readings`;
+    const params = [];
 
-        if (range === "24h") {
-            query += ` WHERE timestamp >= datetime('now', '-1 day') ORDER BY timestamp DESC`;
-        } else if (range === "7d") {
-            query += ` WHERE timestamp >= datetime('now', '-7 days') ORDER BY timestamp DESC`;
-        } else if (range === "live") {
-            query += ` ORDER BY timestamp DESC LIMIT 20`;
-        } else {
-            query += ` ORDER BY timestamp DESC`;
-        }
+    if (range === "24h") {
+        query += ` WHERE timestamp >= NOW() - INTERVAL '1 day' ORDER BY timestamp DESC`;
+    } else if (range === "7d") {
+        query += ` WHERE timestamp >= NOW() - INTERVAL '7 days' ORDER BY timestamp DESC`;
+    } else if (range === "live") {
+        query += ` ORDER BY timestamp DESC LIMIT 20`;
+    } else {
+        query += ` ORDER BY timestamp DESC`;
+    }
 
-        db.all(query, params, (err, rows) => {
-            if (err) reject(err);
-            else resolve(rows);
-        });
-    });
+    try {
+        const result = await pool.query(query, params);
+        return result.rows;
+    } catch (err) {
+        console.error("Failed to fetch recent readings:", err);
+        throw err;
+    }
 }
 
-function insertWateringEvent() {
-    const statement = db.prepare('INSERT INTO watering_events DEFAULT VALUES');
-    statement.run();
-    statement.finalize();
+async function insertWateringEvent() {
+    try {
+        await pool.query('INSERT INTO watering_events DEFAULT VALUES');
+    } catch (err) {
+        console.error('Failed to insert watering event:', err);
+    }
 }
 
-function getLastWatered() {
-    return new Promise((resolve, reject) => {
-        db.get(
-            `SELECT timestamp FROM watering_events ORDER BY timestamp DESC LIMIT 1`,
-            [],
-            (err, row) => {
-                if (err) reject(err);
-                else resolve(row?.timestamp || null);
-            }
+async function getLastWatered() {
+    try {
+        const result = await pool.query(
+        `SELECT timestamp FROM watering_events ORDER BY timestamp DESC LIMIT 1`
         );
-    });
+        return result.rows[0]?.timestamp || null;
+    } catch (err) {
+        console.error('Failed to fetch last watered timestamp:', err);
+        throw err;
+    }
 }
+
+initTables().catch(console.error);
 
 module.exports = {
     insertReading,
