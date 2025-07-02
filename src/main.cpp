@@ -23,23 +23,6 @@ void ControlTask(void* pvParameters) {
         // Confirm connections over WiFi
         wifi.update();
 
-        // Blink LED when Wi-Fi is not connected
-        static unsigned long lastBlink = 0;
-        static bool ledState = false;
-
-        WifiState wifiState = wifi.getState();
-
-        if (wifiState != WifiState::CONNECTED) {
-            unsigned long now = millis();
-            if (now - lastBlink > 500) {
-                ledState = !ledState;
-                digitalWrite(Config::WIFI_LED_PIN, ledState ? HIGH : LOW);
-                lastBlink = now;
-            }
-        } else {
-            digitalWrite(Config::WIFI_LED_PIN, HIGH);
-        }
-
         // Confirm connections over MQTT
         mqtt.maintainConnection();
 
@@ -55,11 +38,7 @@ void ControlTask(void* pvParameters) {
 
 void setup() {
     Serial.begin(115200);
-
-    // Blink LED when not connected to Wi-Fi
-    pinMode(Config::WIFI_LED_PIN, OUTPUT);
-    digitalWrite(Config::WIFI_LED_PIN, LOW);
-
+    
     wifi.begin();
 
     // Set up Wi-Fi connection
