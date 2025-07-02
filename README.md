@@ -3,10 +3,20 @@
 
 <img src="demo/absolute_cinema.png" width="45%">
 
+## What?
+Quenchtessential is an ESP32-based IoT solution built to automatically water my houseplant while monitoring its health with a full-stack app!
+
+### Circuit
+
+### Tech Stack
+
 ## Why? 
 Life is busy as an eng student, so I don't want my plant to feel neglected.. Also, I was inspired by my previous company Xandar Kardian's sensor hardware + remote patient monitoring software solution and wanna try cloning it mwaahhaha🤫
 
-## Demo
+## Architecture
+
+
+## Demos
 ⚠️⚠️⚠️UNDER CONSTRUCTION⚠️⚠️⚠️
 
 ## GitHub Actions Workflows
