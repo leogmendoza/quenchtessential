@@ -5,15 +5,26 @@
 <img src="demo/the_solution.png" width="100%">
 
 ## 🧐 What?
-Quenchtessential is an ESP32-based IoT solution built to automatically water my houseplant while monitoring its health in real-time through a full-stack dashboard app! 
-
-### Features
-- 
+Quenchtessential is an ESP32-based IoT solution built to automatically water my houseplant while monitoring its health through a full-stack dashboard app! 
 
 ## 😱 Why? 
 Life is busy as an eng student, so I don't want my plant to feel neglected.. Also, I was inspired by my previous company [Xandar Kardian](https://xkcorp.com/) and their vital sign sensor hardware + remote patient monitoring software solution and have been meaning to clone it mwuahahahaaah😈
 
-## ⚙️ Architecture
+## ⭐ Features
+- **Automated Watering**:  
+  Uses an FSM to pump water and feed the plant when the moisture sensor says it meets the "thirsty threshold"
+
+- **Live Health Monitoring**:  
+  Displays real-time and historical moisture data on a modern web dashboard for trend visualization
+  
+- **WiFi-enabled**:  
+  Connects to a network (w/o hardcoding credentials) using a captive portal and talks to the backend via MQTT
+  
+- **Plug-and-Play**:  
+  Fully deployed & cloud-hosted full-stack app and wall-powered, so no local setup needed--as if it was a real product!
+
+## ⚙️ System Architecture
+Sketch coming soon🤭
 
 ### Tech Stack
 - **Microcontroller**: ESP32 (C++ on PlatformIO)
@@ -24,8 +35,12 @@ Life is busy as an eng student, so I don't want my plant to feel neglected.. Als
 - **Hosting**: GitHub Pages (frontend), Render (backend)
 - **CI/CD**: Docker (backend containerization), GitHub Actions (build/deploy)
 
-### Circuit
-- 
+### Circuit Components
+- ESP32 Dev Board
+- Capacitive Soil Moisture Sensor
+- 5V Relay Module
+- 5V Water Pump
+- 9V Breadboard Power Supply
 
 ## 📸 Demos
 ⚠️⚠️⚠️UNDER CONSTRUCTION⚠️⚠️⚠️
