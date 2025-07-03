@@ -62,3 +62,6 @@ Call the **Backend API** yourself!:
 - [GET history?range=7d](https://quenchtessential-backend.onrender.com/history?range=7d)
 - [GET history?range=all](https://quenchtessential-backend.onrender.com/history?range=all)
 - [GET last-watered](https://quenchtessential-backend.onrender.com/last-watered)
+
+## Resources
+⚠️⚠️⚠️UNDER CONSTRUCTION⚠️⚠️⚠️
