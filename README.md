@@ -1,10 +1,9 @@
 # Quenchtessential: Remote Plant Monitoring
-> Water _quenches_ the thirst of plants, thus it is _quintessential_.
-
-<img src="demo/absolute_cinema.png" width="45%">
 
 ## What?
 Quenchtessential is an ESP32-based IoT solution built to automatically water my houseplant while also monitoring its health via a full-stack dashboard app!
+
+<img src="demo/the_solution.png" width="50%">
 
 ### Circuit
 
@@ -27,5 +26,13 @@ Life is busy as an eng student, so I don't want my plant to feel neglected.. Als
 
 [![Backend Build](https://github.com/leogmendoza/quenchtessential/actions/workflows/backend-ci.yml/badge.svg)](https://github.com/leogmendoza/quenchtessential/actions/workflows/backend-ci.yml)
 
-**Backend API:**  
-[https://quenchtessential-backend.onrender.com/history](https://quenchtessential-backend.onrender.com/history)
+**Backend API**:  
+- [GET history?range=live](https://quenchtessential-backend.onrender.com/history?range=live)
+- [GET history?range=24h](https://quenchtessential-backend.onrender.com/history?range=24h)
+- [GET history?range=7d](https://quenchtessential-backend.onrender.com/history?range=7d)
+- [GET history?range=all](https://quenchtessential-backend.onrender.com/history?range=all)
+
+## Epilogue
+> Water _quenches_ the thirst of plants, thus it is _quintessential_.
+
+<img src="demo/absolute_cinema.png" width="45%">
