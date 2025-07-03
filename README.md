@@ -3,7 +3,7 @@
 ## What?
 Quenchtessential is an ESP32-based IoT solution built to automatically water my houseplant while also monitoring its health via a full-stack dashboard app!
 
-<img src="demo/the_solution.png" width="50%"><img src="demo/full_stack.png" width="50%">
+<img src="demo/the_solution.png" width="50%">
 
 ### Circuit
 
