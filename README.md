@@ -35,7 +35,7 @@ Coming soon🤫
 
 [![Backend Build](https://github.com/leogmendoza/quenchtessential/actions/workflows/backend-ci.yml/badge.svg)](https://github.com/leogmendoza/quenchtessential/actions/workflows/backend-ci.yml)
 
-**Backend API**:  
+Call the **Backend API** yourself!:  
 - [GET history?range=live](https://quenchtessential-backend.onrender.com/history?range=live)
 - [GET history?range=24h](https://quenchtessential-backend.onrender.com/history?range=24h)
 - [GET history?range=7d](https://quenchtessential-backend.onrender.com/history?range=7d)
