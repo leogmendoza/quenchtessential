@@ -21,7 +21,7 @@ Life is busy as an eng student, so I don't want my plant to feel neglected.. Als
   Connects to a network (w/o hardcoding credentials) using a captive portal and talks to the backend via MQTT
   
 - **Plug-and-Play**:  
-  Fully deployed & cloud-hosted full-stack app and wall-powered, so no local setup needed--as if it was a real product!
+  Deployed & cloud-hosted full-stack app and wall-powered, so no local setup needed--as if it was a real product!
 
 ## ⚙️ System Architecture
 Sketch coming soon🤭
