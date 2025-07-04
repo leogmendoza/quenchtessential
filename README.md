@@ -1,4 +1,4 @@
-# 🌱Quenchtessential: IoT Plant Watering and Monitoring System
+# 🌱Quenchtessential: IoT Plant Watering and Monitoring
 
 > Water _quenches_ the thirst of plants, thus it is _quintessential_.
 
