@@ -27,7 +27,7 @@ Life is busy as an eng student, so I don't want my plant to feel neglected.. Als
 Sketch coming soon🤭
 
 ### Tech Stack
-- **Microcontroller**: ESP32 (C++ on PlatformIO)
+- **Microcontroller**: ESP32 (C++ on PlatformIO w/ FreeRTOS)
 - **Backend**: Node.js + Express (REST API)
 - **Frontend**: React + Chart.js (data visualization)
 - **Database**: PostgreSQL (hosted on Supabase)
