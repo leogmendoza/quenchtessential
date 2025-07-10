@@ -44,6 +44,9 @@ Sketch coming soon🤭
 
 ## 📸 Demos
 
+### Pumping Test
+<img src="demo/pumping_test.gif" width="60%">
+
 ### WiFi Setup
 <img src="demo/wifi.gif" width="60%">
 
