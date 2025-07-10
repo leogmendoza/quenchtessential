@@ -45,6 +45,9 @@ Sketch coming soon🤭
 ## 📸 Demos
 ⚠️⚠️⚠️UNDER CONSTRUCTION⚠️⚠️⚠️
 
+### WiFi Setup
+<img src="demo/wifi.gif" width="60%">
+
 ### Full Video
 Coming soon🤫
 
