@@ -43,13 +43,15 @@ Sketch coming soon🤭
 - 9V Breadboard Power Supply
 
 ## 📸 Demos
-⚠️⚠️⚠️UNDER CONSTRUCTION⚠️⚠️⚠️
 
 ### WiFi Setup
 <img src="demo/wifi.gif" width="60%">
 
-### Full Video
-Coming soon🤫
+### Overview Video
+[![Overview Video](https://img.youtube.com/vi/Terha1n3Sfg/0.jpg)](https://www.youtube.com/watch?v=Terha1n3Sfg)
+
+### Pumping Demo Video
+[![Pumping Demo Video](https://img.youtube.com/vi/Bf9aWEiihe4/0.jpg)](https://www.youtube.com/watch?v=Bf9aWEiihe4)
 
 ## GitHub Actions Workflows
 
