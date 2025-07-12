@@ -71,5 +71,7 @@ Call the **Backend API** yourself!:
 - [GET history?range=all](https://quenchtessential-backend.onrender.com/history?range=all)
 - [GET last-watered](https://quenchtessential-backend.onrender.com/last-watered)
 
-## Resources  
-- [Preventing Plant Death with Technology by Emilostuff](https://youtu.be/9Fx9zQJe3H4?si=yKk7J3-3mnWMjWvk)
+## Resources/Inspo
+- ["Preventing Plant Death with Technology" by Emilostuff](https://youtu.be/9Fx9zQJe3H4?si=yKk7J3-3mnWMjWvk)
+- ["I gave a plant DEPRESSION" by Kevin Gong](https://youtu.be/e1WxDusYRaw?si=OXE9YvLOd8fOHdHj)
+- Internship at [Xandar Kardian](https://xkcorp.com)
