@@ -24,7 +24,9 @@ Life is busy as an eng student, so I don't want my plant to feel neglected.. Als
   Deployed & cloud-hosted full-stack app and wall-powered, so no local setup needed--as if it was a real product!
 
 ## ⚙️ System Architecture
-Sketch coming soon🤭
+
+### Block Diagram
+<img src="demo/architecture.jpg" width="80%">
 
 ### Tech Stack
 - **Microcontroller**: ESP32 (C++ on PlatformIO w/ FreeRTOS)
